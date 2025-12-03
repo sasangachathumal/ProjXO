@@ -1,0 +1,59 @@
+{
+  "name": "devixo",
+  "version": "1.0.0",
+  "description": "Cross-platform CLI tool to quickly create React, Next.js, Angular, and React Native projects with automatic IDE integration",
+  "license": "MIT",
+  "author": "sasanga chathumal",
+  "main": "index.js",
+  "bin": {
+    "devixo": "./index.js",
+    "ds": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests yet\" && exit 0",
+    "prepublishOnly": "echo \"✓ Ready to publish to npm\""
+  },
+  "keywords": [
+    "cli",
+    "project-starter",
+    "scaffold",
+    "boilerplate",
+    "react",
+    "nextjs",
+    "angular",
+    "react-native",
+    "vite",
+    "expo",
+    "developer-tools",
+    "ide",
+    "vscode",
+    "cursor",
+    "webstorm"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/devixo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/devixo/issues"
+  },
+  "homepage": "https://github.com/yourusername/devixo#readme",
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "preferGlobal": true,
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "dependencies": {
+    "inquirer": "^8.2.6"
+  }
+}

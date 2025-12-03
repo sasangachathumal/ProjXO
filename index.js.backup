@@ -1,0 +1,245 @@
+#!/usr/bin/env node
+
+const { spawn } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+const inquirer = require('inquirer');
+
+// Color helpers for terminal output
+const colors = {
+  reset: '\x1b[0m',
+  bright: '\x1b[1m',
+  green: '\x1b[32m',
+  blue: '\x1b[34m',
+  yellow: '\x1b[33m',
+  red: '\x1b[31m',
+  cyan: '\x1b[36m'
+};
+
+function log(message, color = 'reset') {
+  console.log(`${colors[color]}${message}${colors.reset}`);
+}
+
+// Project type configurations
+const projectTypes = {
+  'react-vite': {
+    name: 'React + Vite',
+    command: 'npm',
+    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react'],
+    postInstall: true
+  },
+  'react-vite-ts': {
+    name: 'React + Vite (TypeScript)',
+    command: 'npm',
+    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react-ts'],
+    postInstall: true
+  },
+  'nextjs': {
+    name: 'Next.js',
+    command: 'npx',
+    getArgs: (name) => ['create-next-app@latest', name],
+    postInstall: false
+  },
+  'angular': {
+    name: 'Angular',
+    command: 'npx',
+    getArgs: (name) => ['@angular/cli@latest', 'new', name],
+    postInstall: false
+  },
+  'react-native': {
+    name: 'React Native (Expo)',
+    command: 'npx',
+    getArgs: (name) => ['create-expo-app', name],
+    postInstall: false
+  }
+};
+
+// IDE configurations
+const ides = {
+  'vscode': { name: 'VS Code', command: 'code' },
+  'cursor': { name: 'Cursor', command: 'cursor' },
+  'webstorm': { name: 'WebStorm', command: 'webstorm' },
+  'idea': { name: 'IntelliJ IDEA', command: 'idea' },
+  'sublime': { name: 'Sublime Text', command: 'subl' },
+  'atom': { name: 'Atom', command: 'atom' },
+  'skip': { name: 'Skip (open manually)', command: null }
+};
+
+function runCommand(command, args, cwd) {
+  return new Promise((resolve, reject) => {
+    log(`\nExecuting: ${command} ${args.join(' ')}`, 'cyan');
+    
+    const proc = spawn(command, args, {
+      stdio: 'inherit',
+      shell: true,
+      cwd: cwd || process.cwd()
+    });
+
+    proc.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`Command failed with code ${code}`));
+      } else {
+        resolve();
+      }
+    });
+
+    proc.on('error', (err) => {
+      reject(err);
+    });
+  });
+}
+
+async function openInIDE(projectPath, ideChoice) {
+  const ide = ides[ideChoice];
+  if (!ide || !ide.command) {
+    return;
+  }
+
+  try {
+    log(`\nOpening project in ${ide.name}...`, 'blue');
+    await runCommand(ide.command, [projectPath]);
+    log(`✓ Project opened in ${ide.name}`, 'green');
+  } catch (error) {
+    log(`✗ Could not open ${ide.name}. Please ensure it's installed and in your PATH.`, 'red');
+    log(`  You can manually open: ${projectPath}`, 'yellow');
+  }
+}
+
+async function createProject() {
+  try {
+    log('\n=== Devixo - Quick Project Setup ===\n', 'bright');
+
+    // Select project type using inquirer
+    const { selectedType } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'selectedType',
+        message: 'Select project type:',
+        choices: Object.entries(projectTypes).map(([key, config]) => ({
+          name: `${config.name} (${key})`,
+          value: key
+        }))
+      }
+    ]);
+
+    const config = projectTypes[selectedType];
+    log(`\n✓ Selected: ${config.name}`, 'green');
+
+    // Get project name
+    const { projectName } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'projectName',
+        message: 'Enter project name:',
+        validate: (input) => {
+          if (!input.trim()) return 'Project name cannot be empty';
+          if (!/^[a-z0-9-_]+$/i.test(input)) return 'Project name can only contain letters, numbers, hyphens, and underscores';
+          return true;
+        }
+      }
+    ]);
+
+    // Get directory (default: current directory)
+    const defaultDir = process.cwd();
+    const { directory } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'directory',
+        message: 'Enter directory path:',
+        default: defaultDir
+      }
+    ]);
+
+    // Expand ~ to home directory
+    const expandedDir = directory.replace(/^~/, require('os').homedir());
+    
+    // Create directory if it doesn't exist
+    if (!fs.existsSync(expandedDir)) {
+      fs.mkdirSync(expandedDir, { recursive: true });
+      log(`\n✓ Created directory: ${expandedDir}`, 'green');
+    }
+
+    const fullPath = path.join(expandedDir, projectName);
+
+    // Check if project already exists
+    if (fs.existsSync(fullPath)) {
+      const { overwrite } = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'overwrite',
+          message: `Project ${projectName} already exists. Overwrite?`,
+          default: false
+        }
+      ]);
+      
+      if (!overwrite) {
+        log('Aborted', 'yellow');
+        return;
+      }
+    }
+
+    // Ask about IDE
+    const { selectedIDE } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'selectedIDE',
+        message: 'Select IDE to open:',
+        choices: Object.entries(ides).map(([key, ide]) => ({
+          name: ide.name,
+          value: key
+        }))
+      }
+    ]);
+
+    log('\n' + '='.repeat(50), 'bright');
+    log('Starting project creation...', 'bright');
+    log('='.repeat(50) + '\n', 'bright');
+
+    // Create project - run command in the target directory
+    await runCommand(
+      config.command,
+      config.getArgs(projectName),
+      expandedDir
+    );
+
+    // Post-install if needed
+    if (config.postInstall) {
+      log('\n\nInstalling dependencies...', 'blue');
+      await runCommand('npm', ['install'], fullPath);
+    }
+
+    log('\n' + '='.repeat(50), 'green');
+    log('✓ Project created successfully!', 'green');
+    log('='.repeat(50) + '\n', 'green');
+
+    // Open in IDE if selected
+    if (selectedIDE !== 'skip') {
+      await openInIDE(fullPath, selectedIDE);
+    }
+
+    log('\nProject location:', 'bright');
+    log(`  ${fullPath}`, 'cyan');
+    log('\nNext steps:', 'bright');
+    log(`  cd ${fullPath}`);
+    
+    if (selectedType === 'react-vite' || selectedType === 'react-vite-ts') {
+      log(`  npm run dev`);
+    } else if (selectedType === 'nextjs') {
+      log(`  npm run dev`);
+    } else if (selectedType === 'angular') {
+      log(`  ng serve`);
+    } else if (selectedType === 'react-native') {
+      log(`  npx expo start`);
+    }
+
+  } catch (error) {
+    if (error.isTtyError) {
+      log('\n✗ Error: Prompt could not be rendered in this environment', 'red');
+    } else {
+      log(`\n✗ Error: ${error.message}`, 'red');
+    }
+  }
+}
+
+// Run the CLI
+createProject();
