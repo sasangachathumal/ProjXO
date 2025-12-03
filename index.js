@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Devixo - Quick Project Setup CLI
+ * ProjXO - Quick Project Setup CLI
  * 
  * Entry point for the CLI application
  * This file should remain minimal, with all logic in src/cli.js

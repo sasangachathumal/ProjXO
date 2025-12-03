@@ -1,4 +1,8 @@
-# DEVixo CLI
+# ProjXO CLI
+
+**One command. Any framework.**
+
+**`Project experience, optimised`**
 
 A cross-platform CLI tool to quickly create and setup new projects for React, Next.js, Angular, and React Native with automatic IDE integration.
 
@@ -30,7 +34,7 @@ A cross-platform CLI tool to quickly create and setup new projects for React, Ne
 npm install -g .
 
 # Now use from anywhere:
-devixo
+projxo
 # or the short alias:
 ds
 ```
@@ -39,18 +43,18 @@ ds
 
 ```bash
 # Run directly without installing:
-node /path/to/devixo/index.js
+node /path/to/projxo/index.js
 
 # Or create an alias in your shell:
 # For bash/zsh (~/.bashrc or ~/.zshrc):
-alias devixo="node /path/to/devixo/index.js"
-alias ds="node /path/to/devixo/index.js"
+alias projxo="node /path/to/projxo/index.js"
+alias ds="node /path/to/projxo/index.js"
 ```
 
-### Option 3: npx (if you publish to npm)
+### Option 3: npx
 
 ```bash
-npx devixo
+npx projxo
 ```
 
 ## Usage
@@ -58,7 +62,7 @@ npx devixo
 Simply run the command and follow the interactive prompts:
 
 ```bash
-devixo
+projxo
 ```
 
 Or with the short alias:
@@ -77,7 +81,7 @@ ds
 ### Example Session
 
 ```
-=== devixo - Quick Project Setup ===
+=== ProjXO - Quick Project Setup ===
 
 Available project types:
   1. React + Vite (react-vite)
@@ -130,50 +134,11 @@ Next steps:
 
 **Note:** IDEs must be installed and available in your system PATH. See IDE-specific documentation for adding command-line tools.
 
-## Extending the Tool
-
-The code is designed to be easily extensible. Here's how to add features:
-
-### Add a New Project Type
-
-Edit `index.js` and add to the `projectTypes` object:
-
-```javascript
-'my-framework': {
-  name: 'My Framework',
-  command: 'npx',
-  args: (name, dir) => ['create-my-framework', path.join(dir, name)],
-  postInstall: false // Set to true if needs `npm install` after
-}
-```
-
-### Add a New IDE
-
-Add to the `ides` object:
-
-```javascript
-'myide': { 
-  name: 'My IDE', 
-  command: 'myide' // The command-line command
-}
-```
-
-### Future Enhancement Ideas
-
-- [ ] Save/load project templates
-- [ ] Git initialization options
-- [ ] Custom npm scripts
-- [ ] Package manager choice (npm/yarn/pnpm)
-- [ ] Pre-configured ESLint/Prettier
-- [ ] Docker setup
-- [ ] CI/CD templates
-- [ ] Database integration
-- [ ] Authentication boilerplate
-
 ## Requirements
 
 - **Node.js** >= 14.0.0
 - **npm** (comes with Node.js)
+- **inquirer** >=8.2.6
 
 ## Troubleshooting
 
@@ -223,4 +188,4 @@ Contributions welcome! Feel free to:
 
 ## Author
 
-Created by [Your Name]
+Created by Sasanga Chathumal

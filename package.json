@@ -1,12 +1,12 @@
 {
-  "name": "devixo",
+  "name": "projxo",
   "version": "1.0.0",
   "description": "Cross-platform CLI tool to quickly create React, Next.js, Angular, and React Native projects with automatic IDE integration",
   "license": "MIT",
   "author": "sasanga chathumal",
   "main": "index.js",
   "bin": {
-    "devixo": "./index.js",
+    "projxo": "./index.js",
     "ds": "./index.js"
   },
   "scripts": {
@@ -36,12 +36,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/devixo.git"
+    "url": "git+https://github.com/yourusername/projxo.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/devixo/issues"
+    "url": "https://github.com/yourusername/projxo/issues"
   },
-  "homepage": "https://github.com/yourusername/devixo#readme",
+  "homepage": "https://github.com/yourusername/projxo#readme",
   "files": [
     "index.js",
     "README.md",
