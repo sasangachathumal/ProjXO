@@ -1,4 +1,4 @@
-# DevStarter CLI
+# DEVixo CLI
 
 A cross-platform CLI tool to quickly create and setup new projects for React, Next.js, Angular, and React Native with automatic IDE integration.
 
@@ -30,7 +30,7 @@ A cross-platform CLI tool to quickly create and setup new projects for React, Ne
 npm install -g .
 
 # Now use from anywhere:
-devstarter
+devixo
 # or the short alias:
 ds
 ```
@@ -39,18 +39,18 @@ ds
 
 ```bash
 # Run directly without installing:
-node /path/to/devstarter/index.js
+node /path/to/devixo/index.js
 
 # Or create an alias in your shell:
 # For bash/zsh (~/.bashrc or ~/.zshrc):
-alias devstarter="node /path/to/devstarter/index.js"
-alias ds="node /path/to/devstarter/index.js"
+alias devixo="node /path/to/devixo/index.js"
+alias ds="node /path/to/devixo/index.js"
 ```
 
 ### Option 3: npx (if you publish to npm)
 
 ```bash
-npx devstarter
+npx devixo
 ```
 
 ## Usage
@@ -58,7 +58,7 @@ npx devstarter
 Simply run the command and follow the interactive prompts:
 
 ```bash
-devstarter
+devixo
 ```
 
 Or with the short alias:
@@ -77,7 +77,7 @@ ds
 ### Example Session
 
 ```
-=== DevStarter - Quick Project Setup ===
+=== devixo - Quick Project Setup ===
 
 Available project types:
   1. React + Vite (react-vite)
