@@ -48,3 +48,5 @@ docs/
 *.md
 !README.md
 !LICENSE
+*.backup
+*.old
