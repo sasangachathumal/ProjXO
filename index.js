@@ -6,8 +6,8 @@
  * Entry point for the CLI application
  * This file should remain minimal, with all logic in src/cli.js
  * 
- * @author Your Name
- * @version 1.0.0
+ * @author Sasanga Chathumal
+ * @version 1.0.1
  */
 
 // Import the main CLI function
