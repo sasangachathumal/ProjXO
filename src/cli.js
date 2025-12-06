@@ -73,7 +73,7 @@ async function run() {
 function displayBanner() {
   logger.newLine();
   logger.log('═══════════════════════════════════════════════════', 'bright');
-  logger.log('   Devixo - Quick Project Setup', 'brightCyan');
+  logger.log('   ProjXO - Quick Project Setup', 'brightCyan');
   logger.log('═══════════════════════════════════════════════════', 'bright');
   logger.newLine();
 }
