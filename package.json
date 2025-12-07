@@ -44,6 +44,7 @@
   "homepage": "https://github.com/sasangachathumal/ProjXO#readme",
   "files": [
     "index.js",
+    "src/**/*",
     "README.md",
     "LICENSE"
   ],
