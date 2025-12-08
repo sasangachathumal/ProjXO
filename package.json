@@ -55,6 +55,7 @@
     "win32"
   ],
   "dependencies": {
-    "inquirer": "^8.2.6"
+    "inquirer": "^8.2.6",
+    "commander": "^11.1.0"
   }
 }

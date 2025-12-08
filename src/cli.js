@@ -57,9 +57,22 @@ async function run() {
     // Display success message
     displaySuccessMessage(projectPath, answers.projectType);
 
+    // Show tracking info
+    // logger.info('✓ Project added to ProjXO tracking');
+    // logger.log('\nQuick access:', 'dim');
+    // logger.log(`  pxo open ${answers.projectName}`, 'cyan');
+    // logger.log(`  pxo list`, 'dim');
+
     // Open in IDE if selected
     if (answers.selectedIDE !== 'skip') {
       await openInIDE(projectPath, answers.selectedIDE);
+      
+      // Update project with IDE preference
+      const { getProjectByPath, updateProject } = require('./storage/projects');
+      const project = getProjectByPath(projectPath);
+      if (project) {
+        updateProject(project.id, { ide: answers.selectedIDE });
+      }
     }
 
   } catch (error) {
