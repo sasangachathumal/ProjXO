@@ -59,6 +59,24 @@ async function createProject({ projectType, projectName, directory }) {
       await runCommand('npm', ['install'], fullPath);
     }
 
+    // Add project to tracking database
+    const { addProject } = require('../storage/projects');
+    try {
+      addProject({
+        name: projectName,
+        path: fullPath,
+        type: projectType,
+        ide: null // Will be set when opened
+      });
+      logger.success('Project added to ProjXO tracking');
+    } catch (dbError) {
+      // Don't fail project creation if database save fails
+      logger.error(`Failed to add project to tracking database: ${dbError.message}`);
+      if (process.env.DEBUG) {
+        console.error(dbError);
+      }
+    }
+
     return fullPath;
     
   } catch (error) {
