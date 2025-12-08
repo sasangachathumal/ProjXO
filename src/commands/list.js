@@ -115,7 +115,7 @@ async function listCommand() {
  * @param {string} projectId - Project ID
  */
 async function showProjectActions(projectId) {
-  const { getProjectById, toggleBookmark } = require('../storage/projects');
+  const { getProjectById } = require('../storage/projects');
   const project = getProjectById(projectId);
   
   if (!project) {
@@ -219,6 +219,7 @@ function handleCopyPath(project) {
  * @param {Object} project - Project object
  */
 function handleToggleBookmark(project) {
+  const { toggleBookmark } = require('../storage/projects');
   const updated = toggleBookmark(project.id);
   if (updated) {
     if (updated.bookmarked) {

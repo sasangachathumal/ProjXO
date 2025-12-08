@@ -3,6 +3,20 @@
  * Handles low-level file operations for project tracking
  */
 
+/**
+ * Storage implementation using JSON files.
+ * 
+ * Future consideration: Migrate to SQLite for better performance
+ * at scale (1000+ projects). Node.js includes sqlite module
+ * since v22.5.0, making it dependency-free.
+ * 
+ * Reasons for current JSON approach:
+ * - Human-readable and editable
+ * - Zero dependencies
+ * - Sufficient performance for typical use
+ * - Easier debugging and backup
+ */
+
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -25,21 +39,21 @@ function initializeStorage() {
 
   // Create projects file if it doesn't exist
   if (!fs.existsSync(PROJECTS_FILE)) {
-    writeProjects({ projects: [] });
+    fs.writeFileSync(PROJECTS_FILE, JSON.stringify({ projects: [] }, null, 2), 'utf8');
   }
 
   // Create bookmarks file if it doesn't exist
   if (!fs.existsSync(BOOKMARKS_FILE)) {
-    writeBookmarks({ bookmarks: [] });
+    fs.writeFileSync(BOOKMARKS_FILE, JSON.stringify({ bookmarks: [] }, null, 2), 'utf8');
   }
 
   // Create config file if it doesn't exist
   if (!fs.existsSync(CONFIG_FILE)) {
-    writeConfig({ 
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify({ 
       version: '1.0.0',
       defaultIDE: null,
       lastSync: null
-    });
+    }, null, 2), 'utf8');
   }
 }
 
