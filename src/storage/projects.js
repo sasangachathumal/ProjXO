@@ -167,41 +167,6 @@ function deleteProject(id) {
 }
 
 /**
- * Toggle bookmark status
- * @param {string} id - Project ID
- * @returns {Object|null} Updated project or null if not found
- */
-function toggleBookmark(id) {
-  const data = readProjects();
-  const project = data.projects.find(p => p.id === id);
-  
-  if (!project) return null;
-  
-  project.bookmarked = !project.bookmarked;
-  writeProjects(data);
-  
-  return project;
-}
-
-/**
- * Set bookmark status
- * @param {string} id - Project ID
- * @param {boolean} bookmarked - Bookmark status
- * @returns {Object|null} Updated project or null if not found
- */
-function setBookmark(id, bookmarked) {
-  const data = readProjects();
-  const project = data.projects.find(p => p.id === id);
-  
-  if (!project) return null;
-  
-  project.bookmarked = bookmarked;
-  writeProjects(data);
-  
-  return project;
-}
-
-/**
  * Get recently accessed projects
  * @param {number} limit - Maximum number of projects to return
  * @returns {Array} Array of recent project objects
@@ -301,8 +266,6 @@ module.exports = {
   updateProject,
   touchProject,
   deleteProject,
-  toggleBookmark,
-  setBookmark,
   getRecentProjects,
   searchProjects,
   cleanProjects,

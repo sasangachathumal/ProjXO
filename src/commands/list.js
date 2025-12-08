@@ -67,12 +67,11 @@ async function listCommand() {
     
     // Create choices for inquirer
     const choices = projects.map(project => {
-      const bookmark = project.bookmarked ? ' ⭐' : '';
       const typeDisplay = getTypeDisplay(project.type);
       const timeAgo = formatRelativeTime(project.lastAccessed);
       
       return {
-        name: `${project.name}${bookmark}  │  ${typeDisplay}  │  ${timeAgo}`,
+        name: `${project.name}  │  ${typeDisplay}  │  ${timeAgo}`,
         value: project.id,
         short: project.name
       };
@@ -131,7 +130,6 @@ async function showProjectActions(projectId) {
       choices: [
         { name: '📂 Open in IDE', value: 'open' },
         { name: '📋 Copy path', value: 'copy' },
-        { name: '⭐ Toggle bookmark', value: 'bookmark' },
         { name: '🗑️  Remove from tracking', value: 'delete' },
         { name: 'ℹ️  Show details', value: 'details' },
         new inquirer.Separator(),
@@ -147,11 +145,6 @@ async function showProjectActions(projectId) {
       
     case 'copy':
       handleCopyPath(project);
-      break;
-      
-    case 'bookmark':
-      handleToggleBookmark(project);
-      await listCommand(); // Refresh list
       break;
       
     case 'delete':
@@ -215,22 +208,6 @@ function handleCopyPath(project) {
 }
 
 /**
- * Handle toggling bookmark
- * @param {Object} project - Project object
- */
-function handleToggleBookmark(project) {
-  const { toggleBookmark } = require('../storage/projects');
-  const updated = toggleBookmark(project.id);
-  if (updated) {
-    if (updated.bookmarked) {
-      logger.success(`Bookmarked ${project.name}`);
-    } else {
-      logger.info(`Removed bookmark from ${project.name}`);
-    }
-  }
-}
-
-/**
  * Handle deleting project from tracking
  * @param {Object} project - Project object
  */
@@ -266,9 +243,6 @@ function showProjectDetails(project) {
   if (project.ide) {
     const ide = getIDE(project.ide);
     logger.log(`  Default IDE:  ${ide?.name || project.ide}`, 'dim');
-  }
-  if (project.bookmarked) {
-    logger.log(`  Bookmarked:   Yes ⭐`, 'yellow');
   }
   logger.log('━'.repeat(50), 'dim');
   logger.newLine();

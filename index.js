@@ -6,16 +6,12 @@
  * Entry point for the CLI application
  * Handles command routing and argument parsing
  * 
- * @version 2.0.0
+ * @version 1.1.0
  */
 
 const { program } = require('commander');
 const { run: createProject } = require('./src/cli');
 const { listCommand } = require('./src/commands/list');
-const { recentCommand } = require('./src/commands/recent');
-const { openCommand } = require('./src/commands/open');
-const { bookmarkCommand } = require('./src/commands/bookmark');
-const { statsCommand } = require('./src/commands/stats');
 const logger = require('./src/utils/logger');
 
 // Package info
@@ -42,39 +38,6 @@ program
     listCommand();
   });
 
-// Show recent projects
-program
-  .command('recent')
-  .description('Show recently accessed projects')
-  .argument('[limit]', 'number of projects to show', '10')
-  .action((limit) => {
-    recentCommand(parseInt(limit));
-  });
-
-// Open project
-program
-  .command('open <project-name>')
-  .description('Open a project in IDE')
-  .action((projectName) => {
-    openCommand(projectName);
-  });
-
-// Bookmark commands
-program
-  .command('bookmark [action] [project-name]')
-  .description('Manage bookmarked projects')
-  .action((action, projectName) => {
-    bookmarkCommand(action, projectName);
-  });
-
-// Show statistics
-program
-  .command('stats')
-  .description('Show project statistics')
-  .action(() => {
-    statsCommand();
-  });
-
 // Handle errors
 program.exitOverride();
 
@@ -88,7 +51,7 @@ try {
     // Version was displayed, exit normally
     process.exit(0);
   } else {
-    logger.error(`Error: ${error.message}`);
+    // logger.error(`Error: ${error.message}`);
     process.exit(1);
   }
 }

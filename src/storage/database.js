@@ -24,7 +24,6 @@ const os = require('os');
 // Storage directory in user's home
 const STORAGE_DIR = path.join(os.homedir(), '.projxo');
 const PROJECTS_FILE = path.join(STORAGE_DIR, 'projects.json');
-const BOOKMARKS_FILE = path.join(STORAGE_DIR, 'bookmarks.json');
 const CONFIG_FILE = path.join(STORAGE_DIR, 'config.json');
 
 /**
@@ -40,11 +39,6 @@ function initializeStorage() {
   // Create projects file if it doesn't exist
   if (!fs.existsSync(PROJECTS_FILE)) {
     fs.writeFileSync(PROJECTS_FILE, JSON.stringify({ projects: [] }, null, 2), 'utf8');
-  }
-
-  // Create bookmarks file if it doesn't exist
-  if (!fs.existsSync(BOOKMARKS_FILE)) {
-    fs.writeFileSync(BOOKMARKS_FILE, JSON.stringify({ bookmarks: [] }, null, 2), 'utf8');
   }
 
   // Create config file if it doesn't exist
@@ -83,34 +77,6 @@ function writeProjects(data) {
     fs.writeFileSync(PROJECTS_FILE, JSON.stringify(data, null, 2), 'utf8');
   } catch (error) {
     throw new Error(`Failed to write projects database: ${error.message}`);
-  }
-}
-
-/**
- * Read bookmarks database
- * @returns {Object} Bookmarks data object
- */
-function readBookmarks() {
-  try {
-    initializeStorage();
-    const data = fs.readFileSync(BOOKMARKS_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.warn('Failed to read bookmarks database, initializing new one');
-    return { bookmarks: [] };
-  }
-}
-
-/**
- * Write bookmarks database
- * @param {Object} data - Bookmarks data object
- */
-function writeBookmarks(data) {
-  try {
-    initializeStorage();
-    fs.writeFileSync(BOOKMARKS_FILE, JSON.stringify(data, null, 2), 'utf8');
-  } catch (error) {
-    throw new Error(`Failed to write bookmarks database: ${error.message}`);
   }
 }
 
@@ -165,10 +131,6 @@ function backupDatabase() {
     fs.copyFileSync(PROJECTS_FILE, path.join(backupDir, 'projects.json'));
   }
   
-  if (fs.existsSync(BOOKMARKS_FILE)) {
-    fs.copyFileSync(BOOKMARKS_FILE, path.join(backupDir, 'bookmarks.json'));
-  }
-  
   if (fs.existsSync(CONFIG_FILE)) {
     fs.copyFileSync(CONFIG_FILE, path.join(backupDir, 'config.json'));
   }
@@ -180,8 +142,6 @@ module.exports = {
   initializeStorage,
   readProjects,
   writeProjects,
-  readBookmarks,
-  writeBookmarks,
   readConfig,
   writeConfig,
   getStorageDir,
