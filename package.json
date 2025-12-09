@@ -1,6 +1,6 @@
 {
   "name": "projxo",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Cross-platform CLI tool to quickly create React, Next.js, Angular, and React Native projects with automatic IDE integration",
   "main": "index.js",
   "bin": {
