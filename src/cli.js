@@ -70,8 +70,7 @@ async function run() {
     } else {
       // Show quick access info
       logger.log('\nQuick access:', 'dim');
-      logger.log(`  pxo open ${answers.projectName}`, 'cyan');
-      logger.log(`  pxo list`, 'dim');
+      logger.log(`  pxo list`, 'cyan');
     }
 
   } catch (error) {
