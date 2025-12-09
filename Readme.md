@@ -1,483 +1,323 @@
 # ProjXO
 
-> **Quick project setup CLI for modern web frameworks**  
-> Stop wasting time with repetitive project scaffolding. Create production-ready projects in seconds.
+**One command, Any framework**
+
+> **Quick project setup and management CLI for modern web frameworks**  
+> Create projects in seconds. Never lose track of them again.
 
 [![npm version](https://img.shields.io/npm/v/projxo.svg)](https://www.npmjs.com/package/projxo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
-## 🚀 Why ProjXO?
-
-As developers, we create new projects constantly—prototypes, client work, side projects, experiments. But every time, we go through the same tedious process:
+## 🚀 Quick Start
 
 ```bash
-# The old way (too many steps!)
+# Install globally
+npm install -g projxo
+
+# Create a new project
+pxo
+
+# List all your projects
+pxo list
+```
+
+**That's it!** Pick your framework, name your project, and start coding.
+
+---
+
+## ✨ What is ProjXO?
+
+**Create projects. Track them. Never lose them.**
+
+ProjXO eliminates the repetitive setup process for new projects. Instead of:
+
+```bash
 npx create-vite my-app
 cd my-app
 npm install
 code .
+# Wait... where did I save that other project?
 ```
 
-**ProjXO does it all in one interactive command:**
+You get:
 
 ```bash
-pxo
+pxo              # Create & track projects
+pxo list         # See all your projects
 ```
 
-That's it. Pick your framework, name your project, choose where it goes, and you're coding in seconds.
-
----
-
-## ✨ Features
-
-- **🎯 One Command Setup** - Interactive CLI guides you through everything
-- **⚡ Latest Tools** - Uses current best practices (Vite, not deprecated CRA)
-- **🎨 Multiple Frameworks** - React, Next.js, Angular, React Native
-- **🔧 IDE Integration** - Auto-opens in VS Code, Cursor, WebStorm, etc.
-- **🌍 Cross-Platform** - Works on macOS, Windows, and Linux
-- **💨 Zero Config** - No setup files, no configuration needed
+**One command. Zero hassle.**
 
 ---
 
 ## 📦 Installation
 
-### Global Installation (Recommended)
-
 ```bash
 npm install -g projxo
 ```
 
-Now use from anywhere:
+**Requirements:**
 
-```bash
-pxo
-```
-
-### npx (No Install)
-
-```bash
-npx projxo
-```
+- Node.js >= 14.0.0
+- npm >= 6.0.0
 
 ---
 
-## 🎯 Quick Start
+## 🛠️ Available Commands
 
-### Create Your First Project
-
-```bash
-pxo
-```
-
-That's it! The CLI will:
-
-1. Ask what framework you want (React, Next.js, Angular, or React Native)
-2. Ask for your project name
-3. Ask where to create it
-4. Ask which IDE to open it in
-5. Create the project and open it
-
-**Total time: ~30 seconds** ⚡
+| Command | Alias | Description |
+|---------|-------|-------------|
+| `pxo` | - | Create a new project with interactive setup |
+| `pxo list` | `pxo ls` | Browse and manage all tracked projects |
+| `pxo --version` | `pxo -V` | Show version number |
+| `pxo --help` | `pxo -h` | Display help information |
 
 ---
 
-## 🛠️ Supported Project Types
-
-### React + Vite (JavaScript)
-
-Modern React development with Vite's lightning-fast HMR
+### Create New Project
 
 ```bash
 pxo
-# Select: React + Vite
 ```
 
-**Includes:**
+**Interactive prompts guide you through:**
 
-- React 18+
-- Vite 5+
-- ESLint configuration
-- Fast Refresh
+1. Framework selection (React, Next.js, Angular, React Native)
+2. Project name
+3. Location
+4. IDE preference
 
-### React + Vite (TypeScript)
+#### **Supported frameworks:**
 
-Type-safe React with Vite
+- **React + Vite** (JavaScript or TypeScript)
+- **Next.js** (App Router, TypeScript)
+- **Angular** (Latest version)
+- **React Native** (Expo)
 
-```bash
-pxo
-# Select: React + Vite (TypeScript)
-```
+#### **Supported IDEs:**
 
-**Includes:**
+ProjXO auto-opens projects in your preferred IDE:
 
-- Everything from React + Vite
-- TypeScript 5+
-- Type definitions
+- **VS Code** (`code`)
+- **Cursor** (`cursor`)
+- **WebStorm** (`webstorm`)
+- **IntelliJ IDEA** (`idea`)
+- **Sublime Text** (`subl`)
+- **Atom** (`atom`)
 
-### Next.js
-
-Production-ready React framework
-
-```bash
-pxo
-# Select: Next.js
-```
-
-**Includes:**
-
-- Next.js 14+ (App Router)
-- TypeScript support
-- ESLint + Prettier
-- Optimized build setup
-
-### Angular
-
-Enterprise-grade framework
-
-```bash
-pxo
-# Select: Angular
-```
-
-**Includes:**
-
-- Angular 17+
-- TypeScript
-- Angular CLI tools
-- Testing setup
-
-### React Native (Expo)
-
-Mobile apps with React
-
-```bash
-pxo
-# Select: React Native (Expo)
-```
-
-**Includes:**
-
-- Expo SDK
-- TypeScript support
-- Development tools
-- Platform-specific configurations
-
----
-
-## 🎨 IDE Integration
-
-ProjXO can automatically open your project in your preferred IDE:
-
-### Supported IDEs
-
-- **VS Code** - `code` command
-- **Cursor** - `cursor` command
-- **WebStorm** - `webstorm` command
-- **IntelliJ IDEA** - `idea` command
-- **Sublime Text** - `subl` command
-- **Atom** - `atom` command
-
-### Setup IDE Command-Line Tools
+**Setup command-line tools:**
 
 **VS Code:**
 
-1. Open VS Code
-2. Press `Cmd/Ctrl + Shift + P`
-3. Type "Shell Command: Install 'code' command in PATH"
-4. Done!
+1. Open Command Palette (`Cmd/Ctrl+Shift+P`)
+2. Type: "Shell Command: Install 'code' command in PATH"
 
-**Cursor:**
-Usually available after installation
+**Other IDEs:** Check your IDE's documentation for CLI setup.
 
-**WebStorm/IntelliJ:**
-Tools → Create Command-line Launcher
+---
 
-**Others:**
-Refer to your IDE's documentation
+### List All Projects
+
+```bash
+pxo list
+# or
+pxo ls
+```
+
+**Shows all your tracked projects with:**
+
+- Project name
+- Framework type
+- Last accessed time
+
+**Interactive actions:**
+
+Select a project and perform actions
+
+- 📂 Open in IDE
+- 📋 Copy project path
+- 🗑️ Remove from tracking
+- ℹ️ Show detailed info
+
+**Example output:**
+
+``` bash
+📦 Your Projects (5)
+
+❯ my-awesome-app     React+Vite    2 hours ago
+  client-dashboard   Next.js       1 day ago
+  mobile-game        React Native  3 days ago
+  legacy-project     Angular       1 week ago
+  test-app           React+Vite    2 weeks ago
+
+Use ↑↓ to navigate • Enter to select
+```
+
+---
+
+### Version & Help
+
+```bash
+# Check version
+pxo --version
+
+# Show help
+pxo --help
+```
 
 ---
 
 ## 📖 Usage Examples
 
-### Example 1: Enterprise Web App
+### Example 1: Create React App
 
 ```bash
-pxo
+$ pxo
 
-# Select: Angular
-# Name: my-ent-app
-# Directory: ~/projects
-# IDE: VS Code
+? Select project type: React + Vite
+? Enter project name: my-landing-page
+? Enter directory: ~/projects
+? Select IDE: VS Code
 
-# Project created and opened in VS Code!
-# Start: npm run dev
-```
+✓ Project created successfully!
+✓ Project added to tracking
 
-### Example 2: Landing Page
-
-```bash
-pxo
-
-# Select: React + Vite
-# Name: my-landing-page
-# Directory: ~/projects
-# IDE: VS Code
-
-# Project created and opened in VS Code!
-# Start: npm run dev
-```
-
-### Example 3: Full-Stack App
-
-```bash
-pxo
-
-# Select: Next.js
-# Name: my-saas-app
-# Directory: ~/work
-# IDE: Cursor
-
-# Next.js project with TypeScript ready!
-# Start: npm run dev
-```
-
-### Example 4: Mobile App
-
-```bash
-pxo
-
-# Select: React Native (Expo)
-# Name: my-mobile-app
-# Directory: ~/apps
-# IDE: VS Code
-
-# Expo project ready!
-# Start: npx expo start
+# Start developing:
+cd ~/projects/my-landing-page
+npm run dev
 ```
 
 ---
 
-## ⚙️ Configuration
-
-ProjXO works out of the box with zero configuration. However, you can customize some behaviors:
-
-### Default Directory
-
-ProjXO uses your current directory by default. Change it during the prompt or `cd` to your preferred location first:
+### Example 2: Browse Your Projects
 
 ```bash
-cd ~/projects
-pxo
-```
+$ pxo list
 
-### Skip IDE Opening
+📦 Your Projects (3)
 
-If you prefer to open projects manually:
+❯ my-landing-page    React+Vite    just now
+  my-nextjs-app      Next.js       2 days ago
+  old-angular-app    Angular       2 weeks ago
 
-```bash
-pxo
-# Select: Skip (open manually)
+# Select a project to:
+# - Open in your IDE
+# - Copy the path
+# - Remove from tracking
+# - View details
 ```
 
 ---
 
-## 🎓 Tips & Best Practices
+## 💡 Tips & Tricks
 
-### Tip 1: Use Consistent Naming
-
-```bash
-# Good naming conventions
-my-project-name    ✓
-my_project_name    ✓
-MyProjectName      ✓
-
-# Avoid
-my project name    ✗ (spaces)
-my-project-name!   ✗ (special chars)
-```
-
-### Tip 2: Organize Projects
+### Organize Your Projects
 
 ```bash
-# Keep projects organized by type
+# Keep projects organized
 ~/projects/clients/
 ~/projects/personal/
-~/projects/experiments/
+~/projects/learning/
 
-# Use ProjXO in each folder
+# Create projects in the right place
 cd ~/projects/clients
 pxo
 ```
 
-### Tip 3: Learn the Frameworks
-
-ProjXO uses official tools:
-
-- **React + Vite**: [vitejs.dev/guide](https://vitejs.dev/guide/)
-- **Next.js**: [nextjs.org/docs](https://nextjs.org/docs)
-- **Angular**: [angular.io/docs](https://angular.io/docs)
-- **Expo**: [docs.expo.dev](https://docs.expo.dev)
-
-### Tip 4: Post-Setup Tasks
-
-After project creation:
-
-**For all projects:**
+### Review Project Details
 
 ```bash
-cd your-project
-git init
-git add .
-git commit -m "Initial commit"
+pxo list
+# → Select project → Show details
+
+# See full information:
+# - Complete path
+# - Creation date
+# - Framework type
+# - Default IDE
 ```
 
-**Add common packages:**
+---
+
+## 📊 How It Works
+
+### Automatic Tracking
+
+Every project you create with ProjXO is automatically tracked:
 
 ```bash
-# For React projects
-npm install axios react-query zustand
+pxo
+# Creates project...
+✓ Project added to tracking
 
-# For styling
-npm install tailwindcss @shadcn/ui
-
-# For forms
-npm install react-hook-form zod
+# Data stored in: ~/.projxo/projects.json
 ```
+
+### What's Stored
+
+- Project name and path
+- Framework type
+- Creation and last accessed timestamps
+- IDE preference
+
+**Privacy:** All data stays local on your machine. No cloud sync, no tracking.
 
 ---
 
 ## 🚨 Troubleshooting
 
-### Issue: Command not found
-
-**Problem:** `pxo: command not found`
-
-**Solution:**
+### Command Not Found
 
 ```bash
 # Reinstall globally
 npm install -g projxo
 
-# Or use full path
+# Or use with npx
 npx projxo
 ```
 
-### Issue: Permission denied
-
-**Problem:** `EACCES: permission denied`
-
-**Solution (macOS/Linux):**
+### Permission Errors (macOS/Linux)
 
 ```bash
-# Fix npm permissions
 sudo chown -R $(whoami) ~/.npm
 sudo chown -R $(whoami) /usr/local/lib/node_modules
-
-# Then reinstall
 npm install -g projxo
 ```
 
-**Solution (Windows):**
-Run terminal as Administrator
+### IDE Doesn't Open
 
-### Issue: IDE doesn't open
+1. Verify IDE is installed
+2. Setup command-line tools (see IDE Integration)
+3. Test manually: `code .` or `cursor .`
 
-**Problem:** IDE selected but doesn't open
+### Projects Not Showing in List
 
-**Solution:**
+**Projects created before v1.1.0 aren't tracked.**
 
-1. Ensure IDE is installed
-2. Set up command-line tools (see IDE Integration section)
-3. Test command manually:
-
-   ```bash
-   code .  # for VS Code
-   cursor . # for Cursor
-   ```
-
-### Issue: Project creation fails
-
-**Problem:** Error during project creation
-
-**Solutions:**
-
-- **Check internet connection** - npm needs to download packages
-- **Clear npm cache** - `npm cache clean --force`
-- **Update Node.js** - Ensure Node.js >= 14.0.0
-- **Check disk space** - Ensure enough space for node_modules
-
----
-
-## 🔧 Requirements
-
-- **Node.js** >= 14.0.0
-- **npm** >= 6.0.0 (comes with Node.js)
-- **Internet connection** (for downloading packages)
-
-### Check Your Versions
-
-```bash
-node --version   # Should be >= 14.0.0
-npm --version    # Should be >= 6.0.0
-```
-
-### Update Node.js
-
-**Using nvm (recommended):**
-```bash
-nvm install 20
-nvm use 20
-```
-
-**Direct download:**
-[nodejs.org/download](https://nodejs.org/download)
+Only projects created after installing v1.1.0+ are automatically tracked.
 
 ---
 
 ## 🤝 Contributing
 
-ProjXO is open source and contributions are welcome!
-To make thing easy and manageable use PR (pull requests) as much as possible.
+Contributions are welcome! Please use pull requests.
 
-### Ways to Contribute
+**Ways to contribute:**
 
 - 🐛 Report bugs
-- 💡 Suggest features
-- 📖 Improve documentation
-- 🔧 Submit pull requests
+- 💡 Suggest features  
+- 📖 Improve docs
+- 🔧 Submit PRs
 
-### Development Setup
+**Development setup:**
 
 ```bash
-# Clone the repository
 git clone https://github.com/sasangachathumal/ProjXO.git
 cd ProjXO
-
-# Install dependencies
 npm install
-
-# Test locally
-node index.js
-
-# Test globally
-npm link
-pxo
-```
-
-### Project Structure
-
-```
-ProjXO/
-├── index.js                 # Entry point
-├── package.json
-└── src/
-    ├── cli.js              # Main CLI logic
-    ├── config/             # Framework & IDE configs
-    ├── utils/              # Helper functions
-    ├── prompts/            # User prompts
-    └── handlers/           # Business logic
+node index.js    # Test locally
 ```
 
 ---
@@ -486,56 +326,31 @@ ProjXO/
 
 MIT © Sasanga Chathumal
 
-See [LICENSE](LICENSE) file for details.
-
 ---
 
 ## 🙏 Credits
 
-ProjXO uses these amazing tools:
-
-- [Vite](https://vitejs.dev/) - Next generation frontend tooling
-- [Next.js](https://nextjs.org/) - React framework
-- [Angular CLI](https://angular.io/cli) - Angular development tools
-- [Expo](https://expo.dev/) - React Native framework
-- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) - Interactive CLI prompts
-
----
-
-## 🗺️ Roadmap
-
-### Current Version (v1.0.0)
-
-- ✅ Interactive project creation
-- ✅ 5 framework templates
-- ✅ IDE integration
-- ✅ Cross-platform support
-
-### Planned Features
-
-- 🔄 Project tracking and quick access
-- 🔄 Bookmarking favorite projects
-- 🔄 Custom project templates
-- 🔄 Post-setup automation (install common packages)
-- 🔄 Git options
-- 🔄 Team templates sharing
+Built with:
+- [Vite](https://vitejs.dev/)
+- [Next.js](https://nextjs.org/)
+- [Angular CLI](https://angular.io/cli)
+- [Expo](https://expo.dev/)
+- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js)
+- [Commander.js](https://github.com/tj/commander.js)
 
 ---
 
-## 💬 Support
-
-### Get Help
+## 💬 Support & Links
 
 - 📖 [Documentation](https://github.com/sasangachathumal/ProjXO#readme)
-- 🐛 [Issue Tracker](https://github.com/sasangachathumal/ProjXO/issues)
+- 🐛 [Issues](https://github.com/sasangachathumal/ProjXO/issues)
 - 💬 [Discussions](https://github.com/sasangachathumal/ProjXO/discussions)
+- 📦 [npm Package](https://www.npmjs.com/package/projxo)
 
-### Stay Updated
+**Connect:**
 
-- ⭐ [Star on GitHub](https://github.com/sasangachathumal/ProjXO)
-- 🐦 [Follow on X](https://x.com/SasangaChathum1)
-- 💼 [Follow on linkedIn](https://www.linkedin.com/in/sasanga-chathumal/)
-- 📋 [Follow on facebook](https://www.facebook.com/profile.php?id=61582131982373)
+- 🐦 [X/Twitter](https://x.com/SasangaChathum1)
+- 💼 [LinkedIn](https://www.linkedin.com/in/sasanga-chathumal/)
 - 📧 [Email](mailto:devbysasanga@gmail.com)
 
 ---
@@ -543,58 +358,28 @@ ProjXO uses these amazing tools:
 ## ⚡ Quick Reference
 
 ```bash
-# Create new project
+# Create project
 pxo
 
-# Check version
+# List projects
+pxo list
+pxo ls
+
+# Version
 pxo --version
+pxo -V
 
-# Get help
+# Help
 pxo --help
-
-# Use without installing
-npx projxo
+pxo -h
 ```
-
----
-
-## 📊 Comparison
-
-### ProjXO vs Manual Setup
-
-| Task | Manual | ProjXO |
-|------|--------|--------|
-| Choose framework | Research docs | Interactive selection |
-| Run create command | Remember exact command | Handled automatically |
-| Navigate to project | `cd` manually | Automatic |
-| Open in IDE | `code .` manually | Automatic |
-| **Total time** | **3-5 minutes** | **30 seconds** |
-
-### ProjXO vs Other Tools
-
-| Feature | ProjXO | create-* tools | Yeoman |
-|---------|--------|----------------|---------|
-| Interactive | ✅ | ⚠️ Varies | ✅ |
-| Multi-framework | ✅ | ❌ Single | ⚠️ Depends |
-| IDE Integration | ✅ | ❌ | ❌ |
-| Zero config | ✅ | ✅ | ❌ |
-| Modern tools | ✅ | ⚠️ Some outdated | ⚠️ Many outdated |
-
----
-
-## 🔗 Links
-
-- **npm**: [npmjs.com/package/ProjXO](https://www.npmjs.com/package/ProjXO)
-- **GitHub**: [github.com/sasangachathumal/ProjXO](https://github.com/sasangachathumal/ProjXO)
-- **Issues**: [github.com/sasangachathumal/ProjXO/issues](https://github.com/sasangachathumal/ProjXO/issues)
-- **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by developers, for developers**
+**Stop wasting time on setup. Start building.**
 
-[⭐ Star on GitHub](https://github.com/sasangachathumal/ProjXO) • [📦 npm Package](https://www.npmjs.com/package/ProjXO) • [🐛 Report Bug](https://github.com/sasangachathumal/ProjXO/issues)
+[⭐ Star on GitHub](https://github.com/sasangachathumal/ProjXO) • [📦 Install Now](https://www.npmjs.com/package/projxo) • [🐛 Report Issue](https://github.com/sasangachathumal/ProjXO/issues)
 
 </div>
