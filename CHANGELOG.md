@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2024-12-06
+## [1.0.0] - 2025-12-06
 
 ### 🎉 Initial Release
 
@@ -52,75 +52,47 @@ The first stable release of ProjXO - a quick project setup CLI for modern web fr
 
 - `inquirer@^8.2.6` - Interactive CLI prompts
 
-### 🛠️ Technical Details
-
-- **Node.js** >= 14.0.0 required
-- **Package size**: ~5MB
-- **Entry point**: Single command (`pxo`)
-
 ---
 
-## [Unreleased]
+## [1.1.0] - 2024-12-09
 
-### 🔮 Planned Features
+Second majior release, comes with local project traking and command list all tracked project and perform action on selected project.
 
-#### v1.1.0
+### ✨ Added - New features
 
-- Project tracking and database
-- Quick access commands (`pxo list`, `pxo recent`, `pxo open`)
-- Project bookmarking
-- Project statistics
-- Fuzzy search for project names
+#### Introduced Features
 
-#### v1.2.0
+- **Tracking Crating Projects** - Track all the projects that get created through the tool using local json file system. **(No Cloud Servers)**
+- **New List Command** - new sub command to list all tracked project and select project from them and perform actions related to that project.
+  **Actions list**
+  - 📂 Open in IDE
+  - 📋 Copy path
+  - 🗑️  Remove from tracking
+  - ℹ️  Show details
 
-- Custom project templates
-- Post-setup automation (install common packages)
-- Git options
-- Environment variables setup
+### 📦 Release Dependencies
 
-#### v1.3.0
-
-- Team templates sharing
-- Cloud synchronization
-- Project groups/workspaces
-- Component generator
-
-#### Future Considerations
-
-- Web dashboard
-- VSCode extension
-- GitHub/GitLab integration
-- AI-powered suggestions
-- Migration tools (CRA to Vite, etc.)
-
----
-
-## Version History
-
-### Release Notes
-
-#### v1.0.0 - First Stable Release
-
-This is the first production-ready release of ProjXO. It includes all core features needed for quick project scaffolding with modern frameworks.
-
-**Key Highlights:**
-
-- Supports 5 popular frameworks
-- Automatic IDE integration
-- Cross-platform compatibility
-- Zero configuration required
-
-**Why v1.0.0?**
-
-- All planned core features implemented
-- Thoroughly tested on macOS, Windows, Linux
-- Stable API (no breaking changes expected)
-- Ready for production use
+- `commander@^11.1.0` - node.js command-line interfaces
 
 ---
 
 ## Migration Guide
+
+### Migrating from 1.0.0 to v1.1.0
+
+This rease added new features on top of the core features that released, no migration is needed. Just update or install and start using!
+
+```bash
+npm update -g projxo
+pxo
+```
+or
+
+```bash
+npm uninstall -g projxo
+npm install -g projxo
+pxo
+```
 
 ### Migrating to v1.0.0
 
@@ -133,35 +105,30 @@ pxo
 
 ---
 
-## Breaking Changes
+### Breaking Changes
 
-### v1.0.0
-No breaking changes (initial release)
+No breaking changes
 
 ---
 
 ## Deprecations
 
-### v1.0.0
-None (initial release)
+None
 
 ---
 
 ## Security
 
-### v1.0.0
-
 - No known security vulnerabilities
 - Dependencies regularly updated
-- No data collection or external requests (except npm registry for package downloads)
+- Data collection only about project details and saved localy in user's computer.
+- No external requests (except npm registry for package downloads)
 
 ---
 
 ## Contributors
 
-### v1.0.0
-
-- Initial development and release
+- Sasanga Chathumal
 
 ---
 

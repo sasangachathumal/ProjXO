@@ -60,6 +60,17 @@ async function run() {
     // Open in IDE if selected
     if (answers.selectedIDE !== 'skip') {
       await openInIDE(projectPath, answers.selectedIDE);
+      
+      // Update project with IDE preference
+      const { getProjectByPath, updateProject } = require('./storage/projects');
+      const project = getProjectByPath(projectPath);
+      if (project) {
+        updateProject(project.id, { ide: answers.selectedIDE });
+      }
+    } else {
+      // Show quick access info
+      logger.log('\nQuick access:', 'dim');
+      logger.log(`  pxo list`, 'cyan');
     }
 
   } catch (error) {
