@@ -66,11 +66,13 @@ async function recentCommand(limit = 10) {
     
     // Create choices for inquirer
     const choices = projects.map((project, index) => {
-      const typeDisplay = getTypeDisplay(project.type);
-      const timeAgo = formatRelativeTime(project.lastAccessed);
+      const typeDisplay = getTypeDisplay(project.type).padEnd(16);
+      const timeAgo = formatRelativeTime(project.lastAccessed).padEnd(15);
+      const indexDisplay = `${index + 1}.`.padEnd(4);
+      const nameDisplay = project.name.padEnd(30);
       
       return {
-        name: `${index + 1}. ${project.name}  │  ${typeDisplay}  │  ${timeAgo}`,
+        name: `${indexDisplay}${nameDisplay} ${typeDisplay} ${timeAgo}`,
         value: project.id,
         short: project.name
       };

@@ -67,11 +67,12 @@ async function listCommand() {
     
     // Create choices for inquirer
     const choices = projects.map(project => {
-      const typeDisplay = getTypeDisplay(project.type);
-      const timeAgo = formatRelativeTime(project.lastAccessed);
+      const typeDisplay = getTypeDisplay(project.type).padEnd(16);
+      const timeAgo = formatRelativeTime(project.lastAccessed).padEnd(15);
+      const nameDisplay = project.name.padEnd(30);
       
       return {
-        name: `${project.name}  │  ${typeDisplay}  │  ${timeAgo}`,
+        name: `${nameDisplay} ${typeDisplay} ${timeAgo}`,
         value: project.id,
         short: project.name
       };
