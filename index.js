@@ -13,6 +13,7 @@ const { program } = require('commander');
 const { run: createProject } = require('./src/cli');
 const { listCommand } = require('./src/commands/list');
 const { recentCommand } = require('./src/commands/recent');
+const { openCommand } = require('./src/commands/open');
 const logger = require('./src/utils/logger');
 
 // Package info
@@ -46,6 +47,14 @@ program
   .argument('[limit]', 'number of projects to show', '10')
   .action((limit) => {
     recentCommand(parseInt(limit));
+  });
+
+// Open project
+program
+  .command('open [project-name]')
+  .description('Open a project in IDE')
+  .action((projectName) => {
+    openCommand(projectName);
   });
 
 // Handle errors
