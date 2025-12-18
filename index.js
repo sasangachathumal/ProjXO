@@ -11,11 +11,7 @@
 
 const { program } = require('commander');
 const { run: createProject } = require('./src/cli');
-const { listCommand } = require('./src/commands/list');
-const { recentCommand } = require('./src/commands/recent');
 const { openCommand } = require('./src/commands/open');
-const { bookmarkCommand } = require('./src/commands/bookmark');
-const { statsCommand } = require('./src/commands/stats');
 const logger = require('./src/utils/logger');
 
 // Package info
@@ -33,46 +29,12 @@ program
     createProject();
   });
 
-// List all projects
-program
-  .command('list')
-  .alias('ls')
-  .description('List all tracked projects')
-  .action(() => {
-    listCommand();
-  });
-
-// Show recent projects
-program
-  .command('recent')
-  .description('Show recently accessed projects')
-  .argument('[limit]', 'number of projects to show', '10')
-  .action((limit) => {
-    recentCommand(parseInt(limit));
-  });
-
 // Open project
 program
-  .command('open <project-name>')
+  .command('open [project-name]')
   .description('Open a project in IDE')
   .action((projectName) => {
     openCommand(projectName);
-  });
-
-// Bookmark commands
-program
-  .command('bookmark [action] [project-name]')
-  .description('Manage bookmarked projects')
-  .action((action, projectName) => {
-    bookmarkCommand(action, projectName);
-  });
-
-// Show statistics
-program
-  .command('stats')
-  .description('Show project statistics')
-  .action(() => {
-    statsCommand();
   });
 
 // Handle errors
