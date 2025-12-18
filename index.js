@@ -6,12 +6,13 @@
  * Entry point for the CLI application
  * Handles command routing and argument parsing
  * 
- * @version 1.1.0
+ * @version 1.2.0
  */
 
 const { program } = require('commander');
 const { run: createProject } = require('./src/cli');
 const { listCommand } = require('./src/commands/list');
+const { recentCommand } = require('./src/commands/recent');
 const logger = require('./src/utils/logger');
 
 // Package info
@@ -36,6 +37,15 @@ program
   .description('List all tracked projects')
   .action(() => {
     listCommand();
+  });
+
+// Show recent projects
+program
+  .command('recent')
+  .description('Show recently accessed projects')
+  .argument('[limit]', 'number of projects to show', '10')
+  .action((limit) => {
+    recentCommand(parseInt(limit));
   });
 
 // Handle errors
