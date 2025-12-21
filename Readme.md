@@ -21,6 +21,12 @@ pxo
 
 # List all your projects
 pxo list
+
+# Open a project quickly
+pxo open my-app
+
+# List all your recently accessed projects
+pxo recent
 ```
 
 **That's it!** Pick your framework, name your project, and start coding.
@@ -46,6 +52,8 @@ You get:
 ```bash
 pxo              # Create & track projects
 pxo list         # See all your projects
+pxo open my-app  # Open instantly
+pxo recent       # See all recent projects
 ```
 
 **One command. Zero hassle.**
@@ -71,6 +79,8 @@ npm install -g projxo
 |---------|-------|-------------|
 | `pxo` | - | Create a new project with interactive setup |
 | `pxo list` | `pxo ls` | Browse and manage all tracked projects |
+| `pxo recent [limit]` | - | Browse recently accessed projects |
+| `pxo open <project-name>` | - | Quick open project by name |
 | `pxo --version` | `pxo -V` | Show version number |
 | `pxo --help` | `pxo -h` | Display help information |
 
@@ -155,6 +165,75 @@ Select a project and perform actions
 Use ↑↓ to navigate • Enter to select
 ```
 
+### Recent Projects
+
+```bash
+pxo recent
+# or with custom limit
+pxo recent 5
+```
+
+***Shows your recently accessed projects (default: last 10)***
+
+**Features:**
+
+- Sorted by last accessed time (most recent first)
+- Quick selection with arrow keys
+- Select to open in your preferred IDE
+
+**Example output:**
+
+``` bash
+🕐 Recent Projects (5)
+
+Select a project to open:
+❯ 1.  my-awesome-app      React+Vite    2 hours ago
+  2.  client-dashboard    Next.js       1 day ago
+  3.  mobile-game         React Native  3 days ago
+  4.  api-server          Next.js       5 days ago
+  5.  test-project        React+Vite    1 week ago
+```
+
+**Use case:** Perfect for quickly switching between active projects without browsing the full list.
+
+### Quick Open Project
+
+```bash
+pxo open <project-name>
+```
+
+**Instantly open a project by name** - the fastest way to access your work.
+
+**Features:**
+
+- Direct project opening by name
+- Fuzzy search if exact match not found
+- Opens in your preferred IDE
+- Updates last accessed timestamp
+
+**Example output:**
+
+``` bash
+# Exact match
+pxo open my-awesome-app
+
+# Fuzzy match (finds "my-awesome-app")
+pxo open awesome
+
+# Multiple matches - shows selection menu
+pxo open app
+```
+
+```bash
+$ pxo open dashboard
+
+Found similar project: client-dashboard
+✓ Opening client-dashboard in VS Code...
+✓ Opened client-dashboard
+```
+
+**Use case:** When you know the project name, this is the fastest way to open it.
+
 ---
 
 ### Version & Help
@@ -209,9 +288,45 @@ $ pxo list
 # - View details
 ```
 
+### Example 3: Quick Access Workflow
+
+```bash
+# Morning: See what you worked on recently
+$ pxo recent
+# → Select and open your active project
+
+# Later: Quick open by name
+$ pxo open client-dashboard
+✓ Opened client-dashboard
+
+# End of day: Browse all projects
+$ pxo list
+# → Review and organize
+```
+
 ---
 
 ## 💡 Tips & Tricks
+
+### Use Recent for Active Work
+
+```bash
+# Working on multiple projects?
+pxo recent
+
+# Shows only what you've touched recently
+# Much faster than scrolling through all projects
+```
+
+### Quick Open for Speed
+
+```bash
+# If you remember the name, use open
+pxo open my-app
+
+# Fuzzy search helps with partial names
+pxo open dash  # finds "client-dashboard"
+```
 
 ### Organize Your Projects
 
@@ -298,6 +413,18 @@ npm install -g projxo
 
 Only projects created after installing v1.1.0+ are automatically tracked.
 
+### Project Not Found (Open Command)
+
+If `pxo open` can't find your project:
+
+```bash
+# Use list to see exact names
+pxo list
+
+# Or try partial name (fuzzy search)
+pxo open partial-name
+```
+
 ---
 
 ## 🤝 Contributing
@@ -364,6 +491,13 @@ pxo
 # List projects
 pxo list
 pxo ls
+
+# Recent projects
+pxo recent
+pxo recent 5
+
+# Quick open
+pxo open <project-name>
 
 # Version
 pxo --version

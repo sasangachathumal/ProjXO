@@ -76,7 +76,54 @@ Second majior release, comes with local project traking and command list all tra
 
 ---
 
+## [1.2.0] - 2024-12-22
+
+### ✨ Added - New Commands
+
+#### Recent Projects Command
+
+- **`pxo recent [limit]`** - Show recently accessed projects
+  - Displays last 10 projects by default (customizable)
+  - Sorted by last accessed time
+  - Quick selection and opening with arrow keys
+  - Perfect for switching between active projects
+
+#### Quick Open Command
+
+- **`pxo open <project-name>`** - Instantly open projects by name
+  - Direct project opening without browsing
+  - Fuzzy search for partial name matches
+  - Multiple match selection when needed
+  - Updates last accessed timestamp automatically
+
+### 🔧 Changed
+
+- **List Command** - Improved table formatting for better readability
+  - Aligned columns (project name, type, time)
+  - Consistent spacing and padding
+  - Cleaner visual presentation
+
+### 📝 Documentation
+
+- Updated README with new commands
+- Added usage examples for `recent` and `open`
+- Enhanced quick reference guide
+
+---
+
 ## Migration Guide
+
+### Migrating from 1.1.0 to v1.2.0
+
+New commands added. No breaking changes, just update:
+
+```bash
+npm update -g projxo
+
+# Try new commands
+pxo recent
+pxo open <project-name>
+```
 
 ### Migrating from 1.0.0 to v1.1.0
 
