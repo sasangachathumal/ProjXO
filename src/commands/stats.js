@@ -4,45 +4,32 @@
  */
 
 const { getProjectStats } = require('../storage/projects');
+const { formatDate } = require('../utils/common');
 const logger = require('../utils/logger');
-
-/**
- * Format date nicely
- * @param {string} isoDate - ISO date string
- * @returns {string} Formatted date
- */
-function formatDate(isoDate) {
-  const date = new Date(isoDate);
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'short', 
-    day: 'numeric' 
-  });
-}
 
 /**
  * Execute stats command
  */
-function statsCommand() {
+const statsCommand = () => {
   try {
     const stats = getProjectStats();
-    
+
     if (stats.total === 0) {
       logger.info('No projects found');
       logger.log('\nCreate your first project with:', 'dim');
       logger.log('  pxo', 'cyan');
       return;
     }
-    
+
     logger.newLine();
     logger.log('📊 Project Statistics', 'bright');
     logger.log('═'.repeat(50), 'dim');
     logger.newLine();
-    
+
     // Total projects
     logger.log(`Total Projects:     ${stats.total}`, 'cyan');
     logger.newLine();
-    
+
     // By type
     logger.log('Projects by Type:', 'bright');
     Object.entries(stats.byType).forEach(([type, count]) => {
@@ -51,11 +38,11 @@ function statsCommand() {
       logger.log(`  ${type.padEnd(20)} ${count} (${percentage}%)  ${bar}`, 'dim');
     });
     logger.newLine();
-    
+
     // Most used IDE
     logger.log(`Most Used IDE:      ${stats.mostUsedIDE}`, 'blue');
     logger.newLine();
-    
+
     // Newest and oldest
     if (stats.newest) {
       logger.log('Recent Activity:', 'bright');
@@ -64,11 +51,11 @@ function statsCommand() {
         logger.log(`  Oldest:  ${stats.oldest.name} (${formatDate(stats.oldest.createdAt)})`, 'dim');
       }
     }
-    
+
     logger.newLine();
     logger.log('═'.repeat(50), 'dim');
     logger.newLine();
-    
+
   } catch (error) {
     logger.error(`Failed to get statistics: ${error.message}`);
   }

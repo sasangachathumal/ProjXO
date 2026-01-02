@@ -11,7 +11,7 @@ const { validateProjectName } = require('../utils/fileSystem');
  * Get project type selection prompt
  * @returns {Object} Inquirer prompt configuration
  */
-function getProjectTypePrompt() {
+const getProjectTypePrompt = () => {
   return {
     type: 'list',
     name: 'projectType',
@@ -25,7 +25,7 @@ function getProjectTypePrompt() {
  * Get project name input prompt
  * @returns {Object} Inquirer prompt configuration
  */
-function getProjectNamePrompt() {
+const getProjectNamePrompt = () => {
   return {
     type: 'input',
     name: 'projectName',
@@ -43,7 +43,7 @@ function getProjectNamePrompt() {
  * @param {string} defaultPath - Default directory path
  * @returns {Object} Inquirer prompt configuration
  */
-function getDirectoryPrompt(defaultPath) {
+const getDirectoryPrompt = (defaultPath) => {
   return {
     type: 'input',
     name: 'directory',
@@ -57,7 +57,7 @@ function getDirectoryPrompt(defaultPath) {
  * Get IDE selection prompt
  * @returns {Object} Inquirer prompt configuration
  */
-function getIDEPrompt() {
+const getIDEPrompt = () => {
   return {
     type: 'list',
     name: 'selectedIDE',
@@ -72,7 +72,7 @@ function getIDEPrompt() {
  * @param {string} projectName - Name of the project that already exists
  * @returns {Object} Inquirer prompt configuration
  */
-function getOverwritePrompt(projectName) {
+const getOverwritePrompt = (projectName) => {
   return {
     type: 'confirm',
     name: 'overwrite',
@@ -86,7 +86,7 @@ function getOverwritePrompt(projectName) {
  * @param {string} defaultDirectory - Default directory path
  * @returns {Array<Object>} Array of prompt configurations
  */
-function getProjectCreationPrompts(defaultDirectory) {
+const getProjectCreationPrompts = (defaultDirectory) => {
   return [
     getProjectTypePrompt(),
     getProjectNamePrompt(),

@@ -3,7 +3,7 @@
  * @param {string} isoDate - ISO date string
  * @returns {string} Human-readable relative time
  */
-function formatRelativeTime(isoDate) {
+const formatRelativeTime = (isoDate) => {
   const date = new Date(isoDate);
   const now = new Date();
   const diffMs = now - date;
@@ -24,7 +24,7 @@ function formatRelativeTime(isoDate) {
  * @param {string} type - Project type key
  * @returns {string} Formatted display name
  */
-function getTypeDisplay(type) {
+const getTypeDisplay = (type) => {
   const typeMap = {
     'angular': 'Angular',
     'ionic-angular': 'Ionic+Angular',
@@ -43,8 +43,23 @@ function getTypeDisplay(type) {
 const formatPadEnd = (text, width = 40) =>
   `${text.padEnd(width)}`;
 
+/**
+ * Format date nicely
+ * @param {string} isoDate - ISO date string
+ * @returns {string} Formatted date
+ */
+const formatDate = (isoDate) => {
+  const date = new Date(isoDate);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+
 module.exports = {
     getTypeDisplay,
     formatRelativeTime,
-    formatPadEnd
+    formatPadEnd,
+    formatDate
 }

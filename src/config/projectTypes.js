@@ -107,7 +107,7 @@ const PROJECT_TYPES = {
  * @param {string} typeKey - Project type key
  * @returns {ProjectTypeConfig|null} Configuration object or null if not found
  */
-function getProjectType(typeKey) {
+const getProjectType = (typeKey) => {
   return PROJECT_TYPES[typeKey] || null;
 }
 
@@ -115,7 +115,7 @@ function getProjectType(typeKey) {
  * Get all project types as an array
  * @returns {Array<{key: string, config: ProjectTypeConfig}>}
  */
-function getAllProjectTypes() {
+const getAllProjectTypes = () => {
   return Object.entries(PROJECT_TYPES).map(([key, config]) => ({
     key,
     config
@@ -126,7 +126,7 @@ function getAllProjectTypes() {
  * Get formatted choices for inquirer prompts
  * @returns {Array<{name: string, value: string}>}
  */
-function getProjectTypeChoices() {
+const getProjectTypeChoices = () => {
   return Object.entries(PROJECT_TYPES).map(([key, config]) => ({
     name: formatPadEnd(`${config.name} (${key})`, 60),
     value: key,
@@ -140,7 +140,7 @@ function getProjectTypeChoices() {
  * @param {string} projectPath - Full path to the project
  * @returns {string[]} Array of instruction strings
  */
-function getNextSteps(typeKey, projectPath) {
+const getNextSteps = (typeKey, projectPath) => {
   const steps = [`cd ${projectPath}`];
 
   switch (typeKey) {
@@ -187,7 +187,7 @@ function getNextSteps(typeKey, projectPath) {
  * @param {string} typeKey - Project type key to check
  * @returns {boolean}
  */
-function isValidProjectType(typeKey) {
+const isValidProjectType = (typeKey) => {
   return typeKey in PROJECT_TYPES;
 }
 

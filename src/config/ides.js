@@ -67,7 +67,7 @@ const IDES = {
  * @param {string} ideKey - IDE key
  * @returns {IDEConfig|null} Configuration object or null if not found
  */
-function getIDE(ideKey) {
+const getIDE = (ideKey) => {
   return IDES[ideKey] || null;
 }
 
@@ -75,7 +75,7 @@ function getIDE(ideKey) {
  * Get all IDEs as an array
  * @returns {Array<{key: string, config: IDEConfig}>}
  */
-function getAllIDEs() {
+const getAllIDEs = () => {
   return Object.entries(IDES).map(([key, config]) => ({
     key,
     config
@@ -86,7 +86,7 @@ function getAllIDEs() {
  * Get formatted choices for inquirer prompts
  * @returns {Array<{name: string, value: string}>}
  */
-function getIDEChoices() {
+const getIDEChoices = () => {
   return Object.entries(IDES).map(([key, config]) => ({
     name: formatPadEnd(config.name, 40),
     value: key,
@@ -99,7 +99,7 @@ function getIDEChoices() {
  * @param {string} ideKey - IDE key to check
  * @returns {boolean}
  */
-function isValidIDE(ideKey) {
+const isValidIDE = (ideKey) => {
   return ideKey in IDES;
 }
 
@@ -108,7 +108,7 @@ function isValidIDE(ideKey) {
  * @param {string} ideKey - IDE key
  * @returns {string} Installation instructions
  */
-function getIDEInstallInstructions(ideKey) {
+const getIDEInstallInstructions = (ideKey) => {
   const instructions = {
     'vscode': 'Install "Shell Command: Install \'code\' command in PATH" from Command Palette (Cmd/Ctrl+Shift+P)',
     'cursor': 'Cursor command is usually available after installation',

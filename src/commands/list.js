@@ -14,7 +14,7 @@ const logger = require('../utils/logger');
 /**
  * Execute list command
  */
-async function listCommand() {
+const listCommand = async () => {
   try {
     const projects = getAllProjects();
 
@@ -78,7 +78,7 @@ async function listCommand() {
  * Show actions for a selected project
  * @param {string} projectId - Project ID
  */
-async function showProjectActions(projectId) {
+const showProjectActions = async (projectId) => {
   const padEndWidth = 40;
   const { getProjectById } = require('../storage/projects');
   const project = getProjectById(projectId);
@@ -136,7 +136,7 @@ async function showProjectActions(projectId) {
  * Handle opening project in IDE
  * @param {Object} project - Project object
  */
-async function handleOpenProject(project) {
+const handleOpenProject = async (project) => {
   // Update last accessed time
   touchProject(project.id);
 
@@ -168,7 +168,7 @@ async function handleOpenProject(project) {
  * Handle copying project path
  * @param {Object} project - Project object
  */
-function handleCopyPath(project) {
+const handleCopyPath = (project) => {
   // For now, just display the path
   // In future, could use clipboard library
   logger.info('Project path:');
@@ -180,7 +180,7 @@ function handleCopyPath(project) {
  * Handle deleting project from tracking
  * @param {Object} project - Project object
  */
-async function handleDeleteProject(project) {
+const handleDeleteProject = async (project) => {
   const { confirm } = await inquirer.prompt([
     {
       type: 'confirm',
@@ -200,7 +200,7 @@ async function handleDeleteProject(project) {
  * Show detailed project information
  * @param {Object} project - Project object
  */
-function showProjectDetails(project) {
+const showProjectDetails = (project) => {
   logger.newLine();
   logger.log('━'.repeat(50), 'dim');
   logger.log(`  ${project.name}`, 'bright');

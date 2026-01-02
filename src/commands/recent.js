@@ -13,7 +13,7 @@ const logger = require('../utils/logger');
  * Execute recent command
  * @param {number} limit - Number of recent projects to show
  */
-async function recentCommand(limit = 10) {
+const recentCommand = async (limit = 10) => {
   try {
     const projects = getRecentProjects(limit);
 
@@ -78,7 +78,7 @@ async function recentCommand(limit = 10) {
  * Open selected project in IDE
  * @param {string} projectId - Project ID
  */
-async function openSelectedProject(projectId) {
+const openSelectedProject = async (projectId) => {
   const { getProjectById } = require('../storage/projects');
   const { getIDEChoices } = require('../config/ides');
 

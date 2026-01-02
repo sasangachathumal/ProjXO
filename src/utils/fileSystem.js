@@ -15,7 +15,7 @@ const logger = require('./logger');
  * @example
  * expandHomePath('~/Documents') // -> '/Users/username/Documents'
  */
-function expandHomePath(filePath) {
+const expandHomePath = (filePath) => {
   if (filePath.startsWith('~')) {
     return filePath.replace('~', os.homedir());
   }
@@ -27,7 +27,7 @@ function expandHomePath(filePath) {
  * @param {string} dirPath - Directory path to ensure
  * @returns {boolean} True if directory was created, false if already existed
  */
-function ensureDirectory(dirPath) {
+const ensureDirectory = (dirPath) => {
   const expandedPath = expandHomePath(dirPath);
   
   if (!fs.existsSync(expandedPath)) {
@@ -44,7 +44,7 @@ function ensureDirectory(dirPath) {
  * @param {string} filePath - Path to check
  * @returns {boolean} True if path exists
  */
-function pathExists(filePath) {
+const pathExists = (filePath) => {
   return fs.existsSync(expandHomePath(filePath));
 }
 
@@ -53,7 +53,7 @@ function pathExists(filePath) {
  * @param {string} dirPath - Path to check
  * @returns {boolean} True if path exists and is a directory
  */
-function isDirectory(dirPath) {
+const isDirectory = (dirPath) => {
   try {
     const stats = fs.statSync(expandHomePath(dirPath));
     return stats.isDirectory();
@@ -68,7 +68,7 @@ function isDirectory(dirPath) {
  * @param {string} projectName - Project name
  * @returns {string} Full project path
  */
-function getProjectPath(dirPath, projectName) {
+const getProjectPath = (dirPath, projectName) => {
   const expandedDir = expandHomePath(dirPath);
   return path.join(expandedDir, projectName);
 }
@@ -78,7 +78,7 @@ function getProjectPath(dirPath, projectName) {
  * @param {string} dirPath - Directory path to validate
  * @returns {Object} { valid: boolean, error?: string }
  */
-function validateDirectoryPath(dirPath) {
+const validateDirectoryPath = (dirPath) => {
   const expandedPath = expandHomePath(dirPath);
   
   // Check if path contains invalid characters
@@ -109,7 +109,7 @@ function validateDirectoryPath(dirPath) {
  * @param {string} projectName - Project name to validate
  * @returns {Object} { valid: boolean, error?: string }
  */
-function validateProjectName(projectName) {
+const validateProjectName = (projectName) => {
   if (!projectName || !projectName.trim()) {
     return {
       valid: false,

@@ -13,7 +13,7 @@ const logger = require('../utils/logger');
  * Execute open command
  * @param {string} projectName - Project name to open
  */
-async function openCommand(projectName) {
+const openCommand = async (projectName) => {
   try {
     if (!projectName) {
       logger.error('Please provide a project name');
@@ -84,7 +84,7 @@ async function openCommand(projectName) {
  * @param {Array} matches - Array of matching projects
  * @returns {Promise<Object|null>} Selected project or null
  */
-async function selectFromMatches(matches) {
+const selectFromMatches = async (matches) => {
   logger.info(`Found ${matches.length} matching projects:`);
   logger.newLine();
   
