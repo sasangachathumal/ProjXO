@@ -101,9 +101,14 @@ pxo
 
 #### **Supported frameworks:**
 
-- **React + Vite** (JavaScript or TypeScript)
-- **Next.js** (App Router, TypeScript)
 - **Angular** (Latest version)
+- **Ionic + React** (Mobile apps)
+- **Ionic + Angular** (Mobile apps)
+- **Ionic + Vue** (Mobile apps)
+- **Next.js** (App Router, TypeScript)
+- **Next.js + shadcn/ui** (Pre-configured with shadcn components)
+- **Nuxt.js** (Vue.js framework)
+- **React + Vite** (JavaScript or TypeScript)
 - **React Native** (Expo)
 
 #### **Supported IDEs:**

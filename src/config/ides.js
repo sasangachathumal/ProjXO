@@ -8,6 +8,8 @@
  * 3. Optionally add installation instructions in getIDEInstallInstructions
  */
 
+const { formatPadEnd } = require('../utils/common');
+
 /**
  * IDE configuration object
  * @typedef {Object} IDEConfig
@@ -22,37 +24,37 @@ const IDES = {
     command: 'code',
     description: 'Visual Studio Code'
   },
-  
+
   'cursor': {
     name: 'Cursor',
     command: 'cursor',
     description: 'Cursor AI Editor'
   },
-  
+
   'webstorm': {
     name: 'WebStorm',
     command: 'webstorm',
     description: 'JetBrains WebStorm IDE'
   },
-  
+
   'idea': {
     name: 'IntelliJ IDEA',
     command: 'idea',
     description: 'JetBrains IntelliJ IDEA'
   },
-  
+
   'sublime': {
     name: 'Sublime Text',
     command: 'subl',
     description: 'Sublime Text Editor'
   },
-  
+
   'atom': {
     name: 'Atom',
     command: 'atom',
     description: 'GitHub Atom Editor'
   },
-  
+
   'skip': {
     name: 'Skip (open manually)',
     command: null,
@@ -86,7 +88,7 @@ function getAllIDEs() {
  */
 function getIDEChoices() {
   return Object.entries(IDES).map(([key, config]) => ({
-    name: config.name,
+    name: formatPadEnd(config.name, 40),
     value: key,
     short: config.name
   }));
@@ -115,7 +117,7 @@ function getIDEInstallInstructions(ideKey) {
     'sublime': 'Create symlink: ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl',
     'atom': 'Install shell commands from Atom: Atom → Install Shell Commands'
   };
-  
+
   return instructions[ideKey] || 'Please refer to your IDE\'s documentation for command-line setup';
 }
 

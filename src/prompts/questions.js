@@ -17,7 +17,7 @@ function getProjectTypePrompt() {
     name: 'projectType',
     message: 'Select project type:',
     choices: getProjectTypeChoices(),
-    pageSize: 10
+    pageSize: 30
   };
 }
 
@@ -63,7 +63,7 @@ function getIDEPrompt() {
     name: 'selectedIDE',
     message: 'Select IDE to open:',
     choices: getIDEChoices(),
-    pageSize: 10
+    pageSize: 20
   };
 }
 

@@ -8,6 +8,8 @@
  * 3. Add corresponding help text to getNextSteps function
  */
 
+const { formatPadEnd } = require('../utils/common');
+
 /**
  * Project type configuration object
  * @typedef {Object} ProjectTypeConfig
@@ -19,30 +21,6 @@
  */
 
 const PROJECT_TYPES = {
-  'react-vite': {
-    name: 'React + Vite',
-    description: 'React with Vite bundler (JavaScript)',
-    command: 'npm',
-    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react'],
-    postInstall: true
-  },
-  
-  'react-vite-ts': {
-    name: 'React + Vite (TypeScript)',
-    description: 'React with Vite bundler and TypeScript',
-    command: 'npm',
-    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react-ts'],
-    postInstall: true
-  },
-  
-  'nextjs': {
-    name: 'Next.js',
-    description: 'React framework for production',
-    command: 'npx',
-    getArgs: (name) => ['create-next-app@latest', name],
-    postInstall: false // create-next-app already installs dependencies
-  },
-  
   'angular': {
     name: 'Angular',
     description: 'Platform for building web applications',
@@ -50,13 +28,77 @@ const PROJECT_TYPES = {
     getArgs: (name) => ['@angular/cli@latest', 'new', name],
     postInstall: false // Angular CLI already installs dependencies
   },
-  
+
+  'ionic-angular': {
+    name: 'Ionic (Angular)',
+    description: 'Mobile apps/PWA with Ionic and Angular',
+    command: 'npx',
+    getArgs: (name) => ['ionic@latest', 'start', name, '--type=angular'],
+    postInstall: false
+  },
+
+  'ionic-react': {
+    name: 'Ionic (React)',
+    description: 'Mobile apps/PWA with Ionic and React',
+    command: 'npx',
+    getArgs: (name) => ['ionic@latest', 'start', name, '--type=react'],
+    postInstall: false
+  },
+
+  'ionic-vue': {
+    name: 'Ionic (Vue)',
+    description: 'Mobile apps/PWA with Ionic and Vue',
+    command: 'npx',
+    getArgs: (name) => ['ionic@latest', 'start', name, '--type=vue'],
+    postInstall: false
+  },
+
+  'nextjs': {
+    name: 'Next.js',
+    description: 'React framework for production',
+    command: 'npx',
+    getArgs: (name) => ['create-next-app@latest', name],
+    postInstall: false // create-next-app already installs dependencies
+  },
+
+  'nextjs-shadcn': {
+    name: 'Next.js + shadcn/ui',
+    description: 'Next.js with shadcn/ui components',
+    command: 'npx',
+    getArgs: (name) => ['shadcn@latest', 'init', name],
+    postInstall: false
+  },
+
+  'nuxtjs': {
+    name: 'Nuxt.js',
+    description: 'Vue.js framework for production',
+    command: 'npx',
+    getArgs: (name) => ['nuxi@latest', 'init', name],
+    postInstall: false // Nuxt already installs dependencies
+  },
+
   'react-native': {
     name: 'React Native (Expo)',
     description: 'Build native mobile apps with React',
     command: 'npx',
     getArgs: (name) => ['create-expo-app', name],
     postInstall: false // Expo already installs dependencies
+  },
+
+  'react-vite': {
+    name: 'React + Vite',
+    description: 'React with Vite bundler (JavaScript)',
+    command: 'npm',
+    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react'],
+    postInstall: true
+  },
+
+  'react-vite-ts': {
+    name: 'React + Vite (TypeScript)',
+    description: 'React with Vite bundler and TypeScript',
+    command: 'npm',
+    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react-ts'],
+    postInstall: true
   }
 };
 
@@ -86,7 +128,7 @@ function getAllProjectTypes() {
  */
 function getProjectTypeChoices() {
   return Object.entries(PROJECT_TYPES).map(([key, config]) => ({
-    name: `${config.name} (${key})`,
+    name: formatPadEnd(`${config.name} (${key})`, 60),
     value: key,
     short: config.name
   }));
@@ -100,29 +142,43 @@ function getProjectTypeChoices() {
  */
 function getNextSteps(typeKey, projectPath) {
   const steps = [`cd ${projectPath}`];
-  
+
   switch (typeKey) {
     case 'react-vite':
     case 'react-vite-ts':
       steps.push('npm run dev');
       break;
-      
+
     case 'nextjs':
       steps.push('npm run dev');
       break;
-      
+
     case 'angular':
       steps.push('ng serve');
       break;
-      
+
     case 'react-native':
       steps.push('npx expo start');
       break;
-      
+
+    case 'nuxtjs':
+      steps.push('npm run dev');
+      break;
+
+    case 'nextjs-shadcn':
+      steps.push('npm run dev');
+      break;
+
+    case 'ionic-react':
+    case 'ionic-angular':
+    case 'ionic-vue':
+      steps.push('ionic serve');
+      break;
+
     default:
       steps.push('npm start');
   }
-  
+
   return steps;
 }
 
