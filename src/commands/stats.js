@@ -41,7 +41,6 @@ function statsCommand() {
     
     // Total projects
     logger.log(`Total Projects:     ${stats.total}`, 'cyan');
-    logger.log(`Bookmarked:         ${stats.bookmarked} ⭐`, 'yellow');
     logger.newLine();
     
     // By type
