@@ -14,6 +14,7 @@ const { run: createProject } = require('./src/cli');
 const { listCommand } = require('./src/commands/list');
 const { recentCommand } = require('./src/commands/recent');
 const { openCommand } = require('./src/commands/open');
+const { statsCommand } = require('./src/commands/stats');
 const logger = require('./src/utils/logger');
 
 // Package info
@@ -55,6 +56,14 @@ program
   .description('Open a project in IDE')
   .action((projectName) => {
     openCommand(projectName);
+  });
+
+// Show statistics
+program
+  .command('stats')
+  .description('Show project statistics')
+  .action(() => {
+    statsCommand();
   });
 
 // Handle errors
