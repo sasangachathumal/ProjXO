@@ -14,7 +14,7 @@ const logger = require('./logger');
  * @returns {Promise<void>} Resolves when command completes successfully
  * @throws {Error} If command exits with non-zero code
  */
-function runCommand(command, args, cwd) {
+const runCommand = (command, args, cwd) => {
   return new Promise((resolve, reject) => {
     // Log the command being executed for debugging
     logger.log(`\nExecuting: ${command} ${args.join(' ')}`, 'cyan');
@@ -47,7 +47,7 @@ function runCommand(command, args, cwd) {
  * @param {string} command - Command to check
  * @returns {Promise<boolean>} True if command exists
  */
-async function commandExists(command) {
+const commandExists = async (command) => {
   const checkCmd = process.platform === 'win32' ? 'where' : 'which';
   
   try {

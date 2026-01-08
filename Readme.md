@@ -27,6 +27,9 @@ pxo open my-app
 
 # List all your recently accessed projects
 pxo recent
+
+# View stats of the your projects
+pxo stats
 ```
 
 **That's it!** Pick your framework, name your project, and start coding.
@@ -54,6 +57,7 @@ pxo              # Create & track projects
 pxo list         # See all your projects
 pxo open my-app  # Open instantly
 pxo recent       # See all recent projects
+pxo stats        # See stats of all projects
 ```
 
 **One command. Zero hassle.**
@@ -81,6 +85,7 @@ npm install -g projxo
 | `pxo list` | `pxo ls` | Browse and manage all tracked projects |
 | `pxo recent [limit]` | - | Browse recently accessed projects |
 | `pxo open <project-name>` | - | Quick open project by name |
+| `pxo stats` | - | View statistics of the projects created |
 | `pxo --version` | `pxo -V` | Show version number |
 | `pxo --help` | `pxo -h` | Display help information |
 
@@ -101,9 +106,14 @@ pxo
 
 #### **Supported frameworks:**
 
-- **React + Vite** (JavaScript or TypeScript)
-- **Next.js** (App Router, TypeScript)
 - **Angular** (Latest version)
+- **Ionic + React** (Mobile apps)
+- **Ionic + Angular** (Mobile apps)
+- **Ionic + Vue** (Mobile apps)
+- **Next.js** (App Router, TypeScript)
+- **Next.js + shadcn/ui** (Pre-configured with shadcn components)
+- **Nuxt.js** (Vue.js framework)
+- **React + Vite** (JavaScript or TypeScript)
 - **React Native** (Expo)
 
 #### **Supported IDEs:**
@@ -233,6 +243,45 @@ Found similar project: client-dashboard
 ```
 
 **Use case:** When you know the project name, this is the fastest way to open it.
+
+---
+
+### View stats of projects
+
+```bash
+pxo stats
+```
+
+View status of projects created through projxo.
+
+**Features:**
+
+- View projects count
+- View projects count and presentage by framework type
+- View most used IDE
+- View newest and oldest projects
+
+**Example output:**
+
+```bash
+$ pxo stats
+
+📊 Project Statistics
+===========================
+
+Total Projects:     12
+
+Projects by Type:
+  react-vite           2 (17%)  ███
+  react-vite-ts        1 (8%)  █
+  nextjs               2 (17%)  ███
+
+Most Used IDE:      vscode
+
+Recent Activity:
+  Newest:  next-cn2-test (Jan 8, 2026)
+  Oldest:  test-project-1765197012999 (Dec 8, 2025)
+```
 
 ---
 

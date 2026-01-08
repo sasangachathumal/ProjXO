@@ -54,7 +54,7 @@ The first stable release of ProjXO - a quick project setup CLI for modern web fr
 
 ---
 
-## [1.1.0] - 2024-12-09
+## [1.1.0] - 2025-12-09
 
 Second majior release, comes with local project traking and command list all tracked project and perform action on selected project.
 
@@ -76,7 +76,7 @@ Second majior release, comes with local project traking and command list all tra
 
 ---
 
-## [1.2.0] - 2024-12-22
+## [1.2.0] - 2025-12-22
 
 ### ✨ Added - New Commands
 
@@ -111,7 +111,46 @@ Second majior release, comes with local project traking and command list all tra
 
 ---
 
+## [1.3.0] - 2026-01-10
+
+### ✨ Added - New Framework Support
+
+#### New Project Types
+
+- **Nuxt.js** - Vue.js framework for production applications
+- **Next.js + shadcn/ui** - Next.js pre-configured with shadcn/ui components
+- **Ionic + React** - Mobile apps using Ionic with React
+- **Ionic + Angular** - Mobile apps using Ionic with Angular
+- **Ionic + Vue** - Mobile apps using Ionic with Vue
+
+Now supporting **9 different frameworks** and configurations!
+
+### ✨ Added - New Commands
+
+#### Stats Command
+
+- **`pxo stats`** - Show statistics of projects created using projxo
+  - Displays total project count
+  - Display count, precentage of each project type
+  - Display most used IDE
+  - Display newest and oldest activities
+
+---
+
 ## Migration Guide
+
+### Migrating from 1.2.0 to v1.3.0
+
+New command and new frameworks added. No breaking changes, just update:
+
+```bash
+npm update -g projxo
+
+# Try new command and project types
+pxo stats
+# and
+pxo
+```
 
 ### Migrating from 1.1.0 to v1.2.0
 
