@@ -25,7 +25,7 @@ const { openInIDE } = require('./handlers/ideOpener');
  * Main CLI function
  * Orchestrates the entire project creation flow
  */
-async function run() {
+const run = async () => {
   try {
     // Display welcome banner
     displayBanner();
@@ -81,7 +81,7 @@ async function run() {
 /**
  * Display welcome banner
  */
-function displayBanner() {
+const displayBanner = () => {
   logger.newLine();
   logger.log('═══════════════════════════════════════════════════', 'bright');
   logger.log('   ProjXO - Quick Project Setup', 'brightCyan');
@@ -93,7 +93,7 @@ function displayBanner() {
  * Get user inputs through interactive prompts
  * @returns {Promise<Object>} User answers
  */
-async function getUserInputs() {
+const getUserInputs = async () => {
   const defaultDirectory = process.cwd();
 
   // Get project type
@@ -125,7 +125,7 @@ async function getUserInputs() {
  * @param {Object} answers - User answers containing projectName and directory
  * @returns {Promise<boolean>} True if should proceed, false if cancelled
  */
-async function handleExistingProject({ projectName, directory }) {
+const handleExistingProject = async ({ projectName, directory }) => {
   const { expandHomePath, getProjectPath } = require('./utils/fileSystem');
   const expandedDir = expandHomePath(directory);
   const fullPath = getProjectPath(expandedDir, projectName);
@@ -149,7 +149,7 @@ async function handleExistingProject({ projectName, directory }) {
  * Handle errors gracefully
  * @param {Error} error - Error object
  */
-function handleError(error) {
+const handleError = (error) => {
   logger.newLine();
   
   if (error.isTtyError) {

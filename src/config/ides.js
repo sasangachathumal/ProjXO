@@ -8,6 +8,8 @@
  * 3. Optionally add installation instructions in getIDEInstallInstructions
  */
 
+const { formatPadEnd } = require('../utils/common');
+
 /**
  * IDE configuration object
  * @typedef {Object} IDEConfig
@@ -22,37 +24,37 @@ const IDES = {
     command: 'code',
     description: 'Visual Studio Code'
   },
-  
+
   'cursor': {
     name: 'Cursor',
     command: 'cursor',
     description: 'Cursor AI Editor'
   },
-  
+
   'webstorm': {
     name: 'WebStorm',
     command: 'webstorm',
     description: 'JetBrains WebStorm IDE'
   },
-  
+
   'idea': {
     name: 'IntelliJ IDEA',
     command: 'idea',
     description: 'JetBrains IntelliJ IDEA'
   },
-  
+
   'sublime': {
     name: 'Sublime Text',
     command: 'subl',
     description: 'Sublime Text Editor'
   },
-  
+
   'atom': {
     name: 'Atom',
     command: 'atom',
     description: 'GitHub Atom Editor'
   },
-  
+
   'skip': {
     name: 'Skip (open manually)',
     command: null,
@@ -65,7 +67,7 @@ const IDES = {
  * @param {string} ideKey - IDE key
  * @returns {IDEConfig|null} Configuration object or null if not found
  */
-function getIDE(ideKey) {
+const getIDE = (ideKey) => {
   return IDES[ideKey] || null;
 }
 
@@ -73,7 +75,7 @@ function getIDE(ideKey) {
  * Get all IDEs as an array
  * @returns {Array<{key: string, config: IDEConfig}>}
  */
-function getAllIDEs() {
+const getAllIDEs = () => {
   return Object.entries(IDES).map(([key, config]) => ({
     key,
     config
@@ -84,9 +86,9 @@ function getAllIDEs() {
  * Get formatted choices for inquirer prompts
  * @returns {Array<{name: string, value: string}>}
  */
-function getIDEChoices() {
+const getIDEChoices = () => {
   return Object.entries(IDES).map(([key, config]) => ({
-    name: config.name,
+    name: formatPadEnd(config.name, 40),
     value: key,
     short: config.name
   }));
@@ -97,7 +99,7 @@ function getIDEChoices() {
  * @param {string} ideKey - IDE key to check
  * @returns {boolean}
  */
-function isValidIDE(ideKey) {
+const isValidIDE = (ideKey) => {
   return ideKey in IDES;
 }
 
@@ -106,7 +108,7 @@ function isValidIDE(ideKey) {
  * @param {string} ideKey - IDE key
  * @returns {string} Installation instructions
  */
-function getIDEInstallInstructions(ideKey) {
+const getIDEInstallInstructions = (ideKey) => {
   const instructions = {
     'vscode': 'Install "Shell Command: Install \'code\' command in PATH" from Command Palette (Cmd/Ctrl+Shift+P)',
     'cursor': 'Cursor command is usually available after installation',
@@ -115,7 +117,7 @@ function getIDEInstallInstructions(ideKey) {
     'sublime': 'Create symlink: ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl',
     'atom': 'Install shell commands from Atom: Atom → Install Shell Commands'
   };
-  
+
   return instructions[ideKey] || 'Please refer to your IDE\'s documentation for command-line setup';
 }
 

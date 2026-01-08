@@ -4,11 +4,11 @@
  */
 
 const { runCommand } = require('../utils/command');
-const { 
-  expandHomePath, 
-  ensureDirectory, 
-  pathExists, 
-  getProjectPath 
+const {
+  expandHomePath,
+  ensureDirectory,
+  pathExists,
+  getProjectPath
 } = require('../utils/fileSystem');
 const { getProjectType, getNextSteps } = require('../config/projectTypes');
 const logger = require('../utils/logger');
@@ -22,10 +22,10 @@ const logger = require('../utils/logger');
  * @returns {Promise<string>} Full path to the created project
  * @throws {Error} If project creation fails
  */
-async function createProject({ projectType, projectName, directory }) {
+const createProject = async ({ projectType, projectName, directory }) => {
   // Get project type configuration
   const config = getProjectType(projectType);
-  
+
   if (!config) {
     throw new Error(`Invalid project type: ${projectType}`);
   }
@@ -78,7 +78,7 @@ async function createProject({ projectType, projectName, directory }) {
     }
 
     return fullPath;
-    
+
   } catch (error) {
     // Provide helpful error message
     throw new Error(`Failed to create project: ${error.message}`);
@@ -90,20 +90,20 @@ async function createProject({ projectType, projectName, directory }) {
  * @param {string} projectPath - Full path to the created project
  * @param {string} projectType - Project type key
  */
-function displaySuccessMessage(projectPath, projectType) {
+const displaySuccessMessage = (projectPath, projectType) => {
   logger.section('✓ Project created successfully!');
 
   logger.log('Project location:', 'bright');
   logger.log(`  ${projectPath}`, 'cyan');
-  
+
   logger.newLine();
   logger.log('Next steps:', 'bright');
-  
+
   const steps = getNextSteps(projectType, projectPath);
   steps.forEach(step => {
     logger.log(`  ${step}`, 'green');
   });
-  
+
   logger.newLine();
 }
 
@@ -115,7 +115,7 @@ function displaySuccessMessage(projectPath, projectType) {
  * @param {string} params.directory - Directory path
  * @returns {Object} { valid: boolean, error?: string }
  */
-function validateProjectParams({ projectType, projectName, directory }) {
+const validateProjectParams = ({ projectType, projectName, directory }) => {
   // Validate project type
   const config = getProjectType(projectType);
   if (!config) {

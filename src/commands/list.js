@@ -8,82 +8,46 @@ const path = require('path');
 const { getAllProjects, touchProject, deleteProject } = require('../storage/projects');
 const { openInIDE } = require('../handlers/ideOpener');
 const { getIDE } = require('../config/ides');
+const { formatRelativeTime, getTypeDisplay, formatPadEnd } = require('../utils/common');
 const logger = require('../utils/logger');
-
-/**
- * Format relative time
- * @param {string} isoDate - ISO date string
- * @returns {string} Human-readable relative time
- */
-function formatRelativeTime(isoDate) {
-  const date = new Date(isoDate);
-  const now = new Date();
-  const diffMs = now - date;
-  const diffMins = Math.floor(diffMs / 60000);
-  const diffHours = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffMs / 86400000);
-  
-  if (diffMins < 1) return 'just now';
-  if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
-  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-  if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
-  if (diffDays < 30) return `${Math.floor(diffDays / 7)} week${Math.floor(diffDays / 7) > 1 ? 's' : ''} ago`;
-  return `${Math.floor(diffDays / 30)} month${Math.floor(diffDays / 30) > 1 ? 's' : ''} ago`;
-}
-
-/**
- * Get project type display name
- * @param {string} type - Project type key
- * @returns {string} Formatted display name
- */
-function getTypeDisplay(type) {
-  const typeMap = {
-    'react-vite': 'React+Vite',
-    'react-vite-ts': 'React+Vite(TS)',
-    'nextjs': 'Next.js',
-    'angular': 'Angular',
-    'react-native': 'React Native'
-  };
-  return typeMap[type] || type;
-}
 
 /**
  * Execute list command
  */
-async function listCommand() {
+const listCommand = async () => {
   try {
     const projects = getAllProjects();
-    
+
     if (projects.length === 0) {
       logger.info('No projects found');
       logger.log('\nCreate your first project with:', 'dim');
       logger.log('  pxo', 'cyan');
       return;
     }
-    
+
     logger.newLine();
     logger.log(`📦 Your Projects (${projects.length})`, 'bright');
     logger.newLine();
-    
+
     // Create choices for inquirer
     const choices = projects.map(project => {
       const typeDisplay = getTypeDisplay(project.type).padEnd(16);
       const timeAgo = formatRelativeTime(project.lastAccessed).padEnd(15);
       const nameDisplay = project.name.padEnd(30);
-      
+
       return {
         name: `${nameDisplay} ${typeDisplay} ${timeAgo}`,
         value: project.id,
         short: project.name
       };
     });
-    
+
     // Add separator and action options
     choices.push(
       new inquirer.Separator(),
       { name: '← Back', value: 'back' }
     );
-    
+
     const { selectedId } = await inquirer.prompt([
       {
         type: 'list',
@@ -93,14 +57,14 @@ async function listCommand() {
         pageSize: 15
       }
     ]);
-    
+
     if (selectedId === 'back') {
       return;
     }
-    
+
     // Show actions for selected project
     await showProjectActions(selectedId);
-    
+
   } catch (error) {
     if (error.isTtyError) {
       logger.error('This command requires an interactive terminal');
@@ -114,50 +78,54 @@ async function listCommand() {
  * Show actions for a selected project
  * @param {string} projectId - Project ID
  */
-async function showProjectActions(projectId) {
+const showProjectActions = async (projectId) => {
+  const padEndWidth = 40;
   const { getProjectById } = require('../storage/projects');
   const project = getProjectById(projectId);
-  
+
   if (!project) {
     logger.error('Project not found');
     return;
   }
-  
+
+  const message = formatPadEnd(`Actions for "${project.name}"`.slice(0, 40), padEndWidth);
+
   const { action } = await inquirer.prompt([
     {
       type: 'list',
       name: 'action',
-      message: `Actions for "${project.name}":`,
+      pageSize: 8,
+      message,
       choices: [
-        { name: '📂 Open in IDE', value: 'open' },
-        { name: '📋 Copy path', value: 'copy' },
-        { name: '🗑️  Remove from tracking', value: 'delete' },
-        { name: 'ℹ️  Show details', value: 'details' },
-        new inquirer.Separator(),
-        { name: '← Back to list', value: 'back' }
+        { name: formatPadEnd('Open in IDE', padEndWidth), value: 'open' },
+        { name: formatPadEnd('Copy path', padEndWidth), value: 'copy' },
+        { name: formatPadEnd('Remove from tracking', padEndWidth), value: 'delete' },
+        { name: formatPadEnd('Show details', padEndWidth), value: 'details' },
+        new inquirer.Separator('-'.repeat(padEndWidth)),
+        { name: formatPadEnd('← Back to list', padEndWidth), value: 'back' }
       ]
     }
   ]);
-  
+
   switch (action) {
     case 'open':
       await handleOpenProject(project);
       break;
-      
+
     case 'copy':
       handleCopyPath(project);
       break;
-      
+
     case 'delete':
       await handleDeleteProject(project);
       await listCommand(); // Refresh list
       break;
-      
+
     case 'details':
       showProjectDetails(project);
       await showProjectActions(projectId); // Show actions again
       break;
-      
+
     case 'back':
       await listCommand(); // Go back to list
       break;
@@ -168,13 +136,13 @@ async function showProjectActions(projectId) {
  * Handle opening project in IDE
  * @param {Object} project - Project object
  */
-async function handleOpenProject(project) {
+const handleOpenProject = async (project) => {
   // Update last accessed time
   touchProject(project.id);
-  
+
   // Use project's preferred IDE or prompt
   let ideKey = project.ide;
-  
+
   if (!ideKey || ideKey === 'skip') {
     const { getIDEChoices } = require('../config/ides');
     const { selectedIDE } = await inquirer.prompt([
@@ -187,7 +155,7 @@ async function handleOpenProject(project) {
     ]);
     ideKey = selectedIDE;
   }
-  
+
   if (ideKey !== 'skip') {
     const success = await openInIDE(project.path, ideKey);
     if (success) {
@@ -200,7 +168,7 @@ async function handleOpenProject(project) {
  * Handle copying project path
  * @param {Object} project - Project object
  */
-function handleCopyPath(project) {
+const handleCopyPath = (project) => {
   // For now, just display the path
   // In future, could use clipboard library
   logger.info('Project path:');
@@ -212,7 +180,7 @@ function handleCopyPath(project) {
  * Handle deleting project from tracking
  * @param {Object} project - Project object
  */
-async function handleDeleteProject(project) {
+const handleDeleteProject = async (project) => {
   const { confirm } = await inquirer.prompt([
     {
       type: 'confirm',
@@ -221,7 +189,7 @@ async function handleDeleteProject(project) {
       default: false
     }
   ]);
-  
+
   if (confirm) {
     deleteProject(project.id);
     logger.success(`Removed ${project.name} from tracking`);
@@ -232,7 +200,7 @@ async function handleDeleteProject(project) {
  * Show detailed project information
  * @param {Object} project - Project object
  */
-function showProjectDetails(project) {
+const showProjectDetails = (project) => {
   logger.newLine();
   logger.log('━'.repeat(50), 'dim');
   logger.log(`  ${project.name}`, 'bright');

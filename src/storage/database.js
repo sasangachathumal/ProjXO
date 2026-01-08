@@ -30,7 +30,7 @@ const CONFIG_FILE = path.join(STORAGE_DIR, 'config.json');
  * Initialize storage directory and files
  * Creates directory and empty files if they don't exist
  */
-function initializeStorage() {
+const initializeStorage = () => {
   // Create storage directory if it doesn't exist
   if (!fs.existsSync(STORAGE_DIR)) {
     fs.mkdirSync(STORAGE_DIR, { recursive: true });
@@ -43,7 +43,7 @@ function initializeStorage() {
 
   // Create config file if it doesn't exist
   if (!fs.existsSync(CONFIG_FILE)) {
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify({ 
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify({
       version: '1.0.0',
       defaultIDE: null,
       lastSync: null
@@ -55,7 +55,7 @@ function initializeStorage() {
  * Read projects database
  * @returns {Object} Projects data object
  */
-function readProjects() {
+const readProjects = () => {
   try {
     initializeStorage();
     const data = fs.readFileSync(PROJECTS_FILE, 'utf8');
@@ -71,7 +71,7 @@ function readProjects() {
  * Write projects database
  * @param {Object} data - Projects data object
  */
-function writeProjects(data) {
+const writeProjects = (data) => {
   try {
     initializeStorage();
     fs.writeFileSync(PROJECTS_FILE, JSON.stringify(data, null, 2), 'utf8');
@@ -84,7 +84,7 @@ function writeProjects(data) {
  * Read config
  * @returns {Object} Config data object
  */
-function readConfig() {
+const readConfig = () => {
   try {
     initializeStorage();
     const data = fs.readFileSync(CONFIG_FILE, 'utf8');
@@ -99,7 +99,7 @@ function readConfig() {
  * Write config
  * @param {Object} data - Config data object
  */
-function writeConfig(data) {
+const writeConfig = (data) => {
   try {
     initializeStorage();
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(data, null, 2), 'utf8');
@@ -112,7 +112,7 @@ function writeConfig(data) {
  * Get storage directory path
  * @returns {string} Full path to storage directory
  */
-function getStorageDir() {
+const getStorageDir = () => {
   return STORAGE_DIR;
 }
 
@@ -121,20 +121,20 @@ function getStorageDir() {
  * Creates timestamped backups
  * @returns {string} Backup directory path
  */
-function backupDatabase() {
+const backupDatabase = () => {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const backupDir = path.join(STORAGE_DIR, 'backups', timestamp);
-  
+
   fs.mkdirSync(backupDir, { recursive: true });
-  
+
   if (fs.existsSync(PROJECTS_FILE)) {
     fs.copyFileSync(PROJECTS_FILE, path.join(backupDir, 'projects.json'));
   }
-  
+
   if (fs.existsSync(CONFIG_FILE)) {
     fs.copyFileSync(CONFIG_FILE, path.join(backupDir, 'config.json'));
   }
-  
+
   return backupDir;
 }
 

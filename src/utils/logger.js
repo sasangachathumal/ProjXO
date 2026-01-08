@@ -32,7 +32,7 @@ const COLORS = {
  * @param {string} message - Message to log
  * @param {string} color - Color key from COLORS object
  */
-function log(message, color = 'reset') {
+const log = (message, color = 'reset') => {
   const colorCode = COLORS[color] || COLORS.reset;
   console.log(`${colorCode}${message}${COLORS.reset}`);
 }
@@ -41,7 +41,7 @@ function log(message, color = 'reset') {
  * Log success message with green checkmark
  * @param {string} message - Success message
  */
-function success(message) {
+const success = (message) => {
   log(`✓ ${message}`, 'green');
 }
 
@@ -49,7 +49,7 @@ function success(message) {
  * Log error message with red X
  * @param {string} message - Error message
  */
-function error(message) {
+const error = (message) => {
   log(`✗ ${message}`, 'red');
 }
 
@@ -57,7 +57,7 @@ function error(message) {
  * Log warning message with yellow exclamation
  * @param {string} message - Warning message
  */
-function warning(message) {
+const warning = (message) => {
   log(`⚠ ${message}`, 'yellow');
 }
 
@@ -65,7 +65,7 @@ function warning(message) {
  * Log info message with blue icon
  * @param {string} message - Info message
  */
-function info(message) {
+const info = (message) => {
   log(`ℹ ${message}`, 'blue');
 }
 
@@ -74,7 +74,7 @@ function info(message) {
  * @param {number} length - Length of separator (default: 50)
  * @param {string} color - Color of separator
  */
-function separator(length = 50, color = 'bright') {
+const separator = (length = 50, color = 'bright') => {
   log('='.repeat(length), color);
 }
 
@@ -82,7 +82,7 @@ function separator(length = 50, color = 'bright') {
  * Log a section header with separators
  * @param {string} title - Section title
  */
-function section(title) {
+const section = (title) => {
   console.log(); // Empty line
   separator();
   log(title, 'bright');
@@ -93,7 +93,7 @@ function section(title) {
 /**
  * Log an empty line
  */
-function newLine() {
+const newLine = () => {
   console.log();
 }
 
