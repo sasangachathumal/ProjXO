@@ -25,7 +25,7 @@ const PROJECT_TYPES = {
     name: 'Angular',
     description: 'Platform for building web applications',
     command: 'npx',
-    getArgs: (name) => ['@angular/cli@latest', 'new', name],
+    getArgs: (name) => ['--yes', '@angular/cli@latest', 'new', name],
     postInstall: false // Angular CLI already installs dependencies
   },
 
@@ -33,7 +33,7 @@ const PROJECT_TYPES = {
     name: 'Ionic (Angular)',
     description: 'Mobile apps/PWA with Ionic and Angular',
     command: 'npx',
-    getArgs: (name) => ['ionic@latest', 'start', name, '--type=angular'],
+    getArgs: (name) => ['--yes', '@ionic/cli@latest', 'start', name, '--type=angular'],
     postInstall: false
   },
 
@@ -41,7 +41,7 @@ const PROJECT_TYPES = {
     name: 'Ionic (React)',
     description: 'Mobile apps/PWA with Ionic and React',
     command: 'npx',
-    getArgs: (name) => ['ionic@latest', 'start', name, '--type=react'],
+    getArgs: (name) => ['--yes', '@ionic/cli@latest', 'start', name, '--type=react'],
     postInstall: false
   },
 
@@ -49,7 +49,7 @@ const PROJECT_TYPES = {
     name: 'Ionic (Vue)',
     description: 'Mobile apps/PWA with Ionic and Vue',
     command: 'npx',
-    getArgs: (name) => ['ionic@latest', 'start', name, '--type=vue'],
+    getArgs: (name) => ['--yes', '@ionic/cli@latest', 'start', name, '--type=vue'],
     postInstall: false
   },
 
@@ -57,15 +57,16 @@ const PROJECT_TYPES = {
     name: 'Next.js',
     description: 'React framework for production',
     command: 'npx',
-    getArgs: (name) => ['create-next-app@latest', name],
+    getArgs: (name) => ['--yes', 'create-next-app@latest', name],
     postInstall: false // create-next-app already installs dependencies
   },
-
+// npx create-next-app@latest next-shadcn-test --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm && cd next-shadcn-test && npx shadcn@latest init -d
   'nextjs-shadcn': {
-    name: 'Next.js + shadcn/ui',
+    name: 'Next.js + shadcn/ui (default)',
     description: 'Next.js with shadcn/ui components',
     command: 'npx',
-    getArgs: (name) => ['shadcn@latest', 'init', name],
+    getArgs: (name) => ['--yes', 'create-next-app@latest', name, '--typescript --tailwind --eslint',
+      `&& cd ${name}`, '&& npx', 'shadcn@latest', 'init -d'],
     postInstall: false
   },
 
@@ -73,7 +74,7 @@ const PROJECT_TYPES = {
     name: 'Nuxt.js',
     description: 'Vue.js framework for production',
     command: 'npx',
-    getArgs: (name) => ['nuxi@latest', 'init', name],
+    getArgs: (name) => ['--yes', 'nuxi@latest', 'init', name],
     postInstall: false // Nuxt already installs dependencies
   },
 
@@ -81,7 +82,7 @@ const PROJECT_TYPES = {
     name: 'React Native (Expo)',
     description: 'Build native mobile apps with React',
     command: 'npx',
-    getArgs: (name) => ['create-expo-app', name],
+    getArgs: (name) => ['--yes', 'create-expo-app', name],
     postInstall: false // Expo already installs dependencies
   },
 
@@ -89,7 +90,7 @@ const PROJECT_TYPES = {
     name: 'React + Vite',
     description: 'React with Vite bundler (JavaScript)',
     command: 'npm',
-    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react'],
+    getArgs: (name) => ['--yes', 'create', 'vite@latest', name, '--', '--template', 'react'],
     postInstall: true
   },
 
@@ -97,7 +98,7 @@ const PROJECT_TYPES = {
     name: 'React + Vite (TypeScript)',
     description: 'React with Vite bundler and TypeScript',
     command: 'npm',
-    getArgs: (name) => ['create', 'vite@latest', name, '--', '--template', 'react-ts'],
+    getArgs: (name) => ['--yes', 'create', 'vite@latest', name, '--', '--template', 'react-ts'],
     postInstall: true
   }
 };
@@ -128,7 +129,7 @@ const getAllProjectTypes = () => {
  */
 const getProjectTypeChoices = () => {
   return Object.entries(PROJECT_TYPES).map(([key, config]) => ({
-    name: formatPadEnd(`${config.name} (${key})`, 60),
+    name: formatPadEnd(`${config.name}`, 60),
     value: key,
     short: config.name
   }));
