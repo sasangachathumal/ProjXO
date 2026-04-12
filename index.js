@@ -15,6 +15,7 @@ const { listCommand } = require('./src/commands/list');
 const { recentCommand } = require('./src/commands/recent');
 const { openCommand } = require('./src/commands/open');
 const { statsCommand } = require('./src/commands/stats');
+const { trackCommand } = require('./src/commands/track');
 const logger = require('./src/utils/logger');
 
 // Package info
@@ -64,6 +65,19 @@ program
   .description('Show project statistics')
   .action(() => {
     statsCommand();
+  });
+
+// Track existing project
+program
+  .command('track [path]')
+  .description('Add an existing project to tracking')
+  .option('-m, --manual', 'Force manual tracking mode')
+  .option('-y, --yes', 'Skip confirmation prompts')
+  .option('--no-ide', 'Skip IDE preference question')
+  .option('--ide <ide>', 'Set IDE preference directly')
+  .option('-f, --force', 'Force re-tracking even if already tracked')
+  .action((path, options) => {
+    trackCommand(path, options);
   });
 
 // Handle errors
