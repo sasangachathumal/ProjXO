@@ -10,6 +10,12 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"No tests yet\" && exit 0",
+    "pack": "npm pack",
+    "publish:dry": "npm publish --dry-run",
+    "publish:npm": "npm publish",
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
     "prepublishOnly": "echo \"✓ Ready to publish to npm\""
   },
   "keywords": [
