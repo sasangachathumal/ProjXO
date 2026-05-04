@@ -1,9 +1,9 @@
 # ProjXO
 
-**One command, Any framework**
+One command, Any framework
 
-> **Quick project setup and management CLI for modern web frameworks**  
-> Create projects in seconds. Never lose track of them again.
+> **Quick project setup and management CLI for modern web frameworks**
+> Create projects in seconds. Track and open them instantly.
 
 [![npm version](https://img.shields.io/npm/v/projxo.svg)](https://www.npmjs.com/package/projxo)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -19,16 +19,19 @@ npm install -g projxo
 # Create a new project
 pxo
 
+# Track an existing project
+pxo track ~/projects/my-existing-app
+
 # List all your projects
 pxo list
 
-# Open a project quickly
+# Open a project instantly
 pxo open my-app
 
-# List all your recently accessed projects
+# Show recently accessed projects
 pxo recent
 
-# View stats of the your projects
+# View project statistics
 pxo stats
 ```
 
@@ -40,7 +43,7 @@ pxo stats
 
 **Create projects. Track them. Never lose them.**
 
-ProjXO eliminates the repetitive setup process for new projects. Instead of:
+ProjXO eliminates the repetitive setup process for new projects and keeps all your work organized in one place. Instead of:
 
 ```bash
 npx create-vite my-app
@@ -53,14 +56,15 @@ code .
 You get:
 
 ```bash
-pxo              # Create & track projects
-pxo list         # See all your projects
-pxo open my-app  # Open instantly
-pxo recent       # See all recent projects
-pxo stats        # See stats of all projects
+pxo                      # Create & auto-track new projects
+pxo track ~/old-project  # Track projects you already have
+pxo list                 # See all your projects
+pxo open my-app          # Open instantly by name
+pxo recent               # See recently accessed projects
+pxo stats                # View project statistics
 ```
 
-**One command. Zero hassle.**
+**One tool. Zero hassle.**
 
 ---
 
@@ -80,12 +84,13 @@ npm install -g projxo
 ## 🛠️ Available Commands
 
 | Command | Alias | Description |
-|---------|-------|-------------|
-| `pxo` | - | Create a new project with interactive setup |
+| ------- | ----- | ----------- |
+| `pxo` | — | Create a new project with interactive setup |
+| `pxo track [path]` | — | Add an existing project to tracking |
 | `pxo list` | `pxo ls` | Browse and manage all tracked projects |
-| `pxo recent [limit]` | - | Browse recently accessed projects |
-| `pxo open <project-name>` | - | Quick open project by name |
-| `pxo stats` | - | View statistics of the projects created |
+| `pxo recent [limit]` | — | Browse recently accessed projects |
+| `pxo open <project-name>` | — | Quick open project by name |
+| `pxo stats` | — | View project statistics |
 | `pxo --version` | `pxo -V` | Show version number |
 | `pxo --help` | `pxo -h` | Display help information |
 
@@ -99,42 +104,118 @@ pxo
 
 **Interactive prompts guide you through:**
 
-1. Framework selection (React, Next.js, Angular, React Native)
+1. Framework selection
 2. Project name
 3. Location
 4. IDE preference
 
-#### **Supported frameworks:**
+#### Supported Frameworks
 
-- **Angular** (Latest version)
-- **Ionic + React** (Mobile apps)
-- **Ionic + Angular** (Mobile apps)
-- **Ionic + Vue** (Mobile apps)
-- **Next.js** (App Router, TypeScript)
-- **Next.js + shadcn/ui** (Pre-configured with shadcn components)
-- **Nuxt.js** (Vue.js framework)
-- **React + Vite** (JavaScript or TypeScript)
-- **React Native** (Expo)
+| Framework | Description |
+| --------- | ----------- |
+| **Angular** | Latest Angular CLI |
+| **Ionic + React** | Mobile apps with Ionic and React |
+| **Ionic + Angular** | Mobile apps with Ionic and Angular |
+| **Ionic + Vue** | Mobile apps with Ionic and Vue |
+| **Next.js** | App Router, TypeScript |
+| **Next.js + shadcn/ui** | Next.js pre-configured with shadcn/ui |
+| **Nuxt.js** | Vue.js framework for production |
+| **React + Vite** | JavaScript or TypeScript |
+| **React Native** | Expo |
 
-#### **Supported IDEs:**
+#### Supported IDEs
 
-ProjXO auto-opens projects in your preferred IDE:
+ProjXO auto-opens your project in the IDE of your choice:
 
-- **VS Code** (`code`)
-- **Cursor** (`cursor`)
-- **WebStorm** (`webstorm`)
-- **IntelliJ IDEA** (`idea`)
-- **Sublime Text** (`subl`)
-- **Atom** (`atom`)
+| IDE | CLI Command |
+| --- | ----------- |
+| VS Code | `code` |
+| Cursor | `cursor` |
+| WebStorm | `webstorm` |
+| IntelliJ IDEA | `idea` |
+| Sublime Text | `subl` |
+| Atom | `atom` |
 
-**Setup command-line tools:**
-
-**VS Code:**
+**Setting up VS Code CLI:**
 
 1. Open Command Palette (`Cmd/Ctrl+Shift+P`)
-2. Type: "Shell Command: Install 'code' command in PATH"
+2. Type: `Shell Command: Install 'code' command in PATH`
 
-**Other IDEs:** Check your IDE's documentation for CLI setup.
+For other IDEs, check your IDE's documentation for CLI setup.
+
+---
+
+### Track Existing Project
+
+```bash
+pxo track [path]
+```
+
+**Add any project that wasn't created through ProjXO** to your tracking list, so you can open it with `pxo open` or manage it via `pxo list`.
+
+**Auto-detection:** ProjXO scans config files and `package.json` dependencies to automatically identify the framework, language, package manager, and project name.
+
+```bash
+# Track current directory
+pxo track
+
+# Track a specific path
+pxo track ~/projects/my-existing-app
+pxo track /absolute/path/to/project
+```
+
+#### Track Command Flags
+
+| Flag | Description |
+| ---- | ----------- |
+| `-m, --manual` | Skip auto-detection, enter details manually |
+| `-y, --yes` | Skip all confirmation prompts |
+| `--no-ide` | Skip IDE preference question |
+| `--ide <ide>` | Set IDE directly (`vscode`, `cursor`, `webstorm`, etc.) |
+| `-f, --force` | Re-track a project even if already tracked |
+
+#### Auto-Detection Example
+
+```bash
+$ pxo track ~/projects/my-existing-app
+
+🔍 Detecting project...
+
+✓ Project detected:
+
+  Name:        my-existing-app
+  Type:        nextjs
+  Language:    TypeScript
+  Path:        /Users/me/projects/my-existing-app
+  Confidence:  95%
+
+? Add "my-existing-app" (nextjs) to tracking? Yes
+? Default IDE for this project: VS Code
+
+✓ Added my-existing-app to tracking
+
+Quick access:
+  pxo open my-existing-app
+  pxo list
+```
+
+#### Manual Mode
+
+When auto-detection can't identify the framework, or for non-JavaScript projects:
+
+```bash
+$ pxo track ~/projects/my-api --manual
+
+📝 Manual tracking mode
+
+? Enter project name: my-api
+? Select project type: Custom/Other
+? Enter custom project type: fastapi
+? Select primary language: Other
+? Default IDE for this project: VS Code
+
+✓ Added my-api to tracking
+```
 
 ---
 
@@ -146,15 +227,9 @@ pxo list
 pxo ls
 ```
 
-**Shows all your tracked projects with:**
-
-- Project name
-- Framework type
-- Last accessed time
+Browse all tracked projects and take action on any of them.
 
 **Interactive actions:**
-
-Select a project and perform actions
 
 - 📂 Open in IDE
 - 📋 Copy project path
@@ -163,7 +238,7 @@ Select a project and perform actions
 
 **Example output:**
 
-``` bash
+```bash
 📦 Your Projects (5)
 
 ❯ my-awesome-app     React+Vite    2 hours ago
@@ -175,6 +250,8 @@ Select a project and perform actions
 Use ↑↓ to navigate • Enter to select
 ```
 
+---
+
 ### Recent Projects
 
 ```bash
@@ -183,17 +260,11 @@ pxo recent
 pxo recent 5
 ```
 
-***Shows your recently accessed projects (default: last 10)***
-
-**Features:**
-
-- Sorted by last accessed time (most recent first)
-- Quick selection with arrow keys
-- Select to open in your preferred IDE
+Show recently accessed projects (default: last 10), sorted by last accessed time.
 
 **Example output:**
 
-``` bash
+```bash
 🕐 Recent Projects (5)
 
 Select a project to open:
@@ -204,7 +275,7 @@ Select a project to open:
   5.  test-project        React+Vite    1 week ago
 ```
 
-**Use case:** Perfect for quickly switching between active projects without browsing the full list.
+---
 
 ### Quick Open Project
 
@@ -212,54 +283,40 @@ Select a project to open:
 pxo open <project-name>
 ```
 
-**Instantly open a project by name** - the fastest way to access your work.
+Instantly open a project by name — the fastest way to get back to work.
 
-**Features:**
-
-- Direct project opening by name
-- Fuzzy search if exact match not found
-- Opens in your preferred IDE
+- Exact name match opens immediately
+- Partial name triggers fuzzy search
+- Multiple matches show a selection menu
 - Updates last accessed timestamp
 
-**Example output:**
+**Example:**
 
-``` bash
+```bash
 # Exact match
 pxo open my-awesome-app
 
-# Fuzzy match (finds "my-awesome-app")
-pxo open awesome
+# Fuzzy match — finds "client-dashboard"
+pxo open dash
 
-# Multiple matches - shows selection menu
+# Multiple matches — shows selection menu
 pxo open app
 ```
 
-```bash
-$ pxo open dashboard
-
-Found similar project: client-dashboard
-✓ Opening client-dashboard in VS Code...
-✓ Opened client-dashboard
-```
-
-**Use case:** When you know the project name, this is the fastest way to open it.
-
 ---
 
-### View stats of projects
+### View Statistics
 
 ```bash
 pxo stats
 ```
 
-View status of projects created through projxo.
+View a summary of all your tracked projects.
 
-**Features:**
-
-- View projects count
-- View projects count and presentage by framework type
-- View most used IDE
-- View newest and oldest projects
+- Total project count
+- Count and percentage breakdown by framework type
+- Most used IDE
+- Newest and oldest project dates
 
 **Example output:**
 
@@ -273,14 +330,14 @@ Total Projects:     12
 
 Projects by Type:
   react-vite           2 (17%)  ███
-  react-vite-ts        1 (8%)  █
+  react-vite-ts        1 (8%)   █
   nextjs               2 (17%)  ███
 
-Most Used IDE:      vscode
+Most Used IDE:      VS Code
 
 Recent Activity:
-  Newest:  next-cn2-test (Jan 8, 2026)
-  Oldest:  test-project-1765197012999 (Dec 8, 2025)
+  Newest:  my-app (Jan 8, 2026)
+  Oldest:  first-project (Dec 8, 2025)
 ```
 
 ---
@@ -288,10 +345,7 @@ Recent Activity:
 ### Version & Help
 
 ```bash
-# Check version
 pxo --version
-
-# Show help
 pxo --help
 ```
 
@@ -299,12 +353,12 @@ pxo --help
 
 ## 📖 Usage Examples
 
-### Example 1: Create React App
+### Example 1: Create a New Project
 
 ```bash
 $ pxo
 
-? Select project type: React + Vite
+? Select project type: React + Vite (TypeScript)
 ? Enter project name: my-landing-page
 ? Enter directory: ~/projects
 ? Select IDE: VS Code
@@ -312,50 +366,62 @@ $ pxo
 ✓ Project created successfully!
 ✓ Project added to tracking
 
-# Start developing:
 cd ~/projects/my-landing-page
 npm run dev
 ```
 
----
-
-### Example 2: Browse Your Projects
+### Example 2: Track Your Existing Projects
 
 ```bash
-$ pxo list
+# You already have projects from before using ProjXO
+$ pxo track ~/projects/client-dashboard
 
-📦 Your Projects (3)
+🔍 Detecting project...
 
-❯ my-landing-page    React+Vite    just now
-  my-nextjs-app      Next.js       2 days ago
-  old-angular-app    Angular       2 weeks ago
+✓ Project detected:
 
-# Select a project to:
-# - Open in your IDE
-# - Copy the path
-# - Remove from tracking
-# - View details
+  Name:        client-dashboard
+  Type:        nextjs
+  Language:    TypeScript
+  Confidence:  95%
+
+? Add "client-dashboard" (nextjs) to tracking? Yes
+? Default IDE for this project: VS Code
+
+✓ Added client-dashboard to tracking
 ```
 
-### Example 3: Quick Access Workflow
+### Example 3: Daily Workflow
 
 ```bash
 # Morning: See what you worked on recently
 $ pxo recent
 # → Select and open your active project
 
-# Later: Quick open by name
+# Switch projects quickly
 $ pxo open client-dashboard
 ✓ Opened client-dashboard
 
-# End of day: Browse all projects
+# End of day: Review all projects
 $ pxo list
-# → Review and organize
+# → Browse, open, or manage your projects
 ```
 
 ---
 
 ## 💡 Tips & Tricks
+
+### Track All Your Existing Projects at Once
+
+```bash
+# Already have projects? Track them one by one:
+pxo track ~/projects/project-one
+pxo track ~/projects/project-two
+
+# Or track the current directory:
+cd ~/projects/my-project
+pxo track
+```
 
 ### Use Recent for Active Work
 
@@ -363,44 +429,38 @@ $ pxo list
 # Working on multiple projects?
 pxo recent
 
-# Shows only what you've touched recently
-# Much faster than scrolling through all projects
+# Shows only what you've touched recently —
+# much faster than scrolling through the full list
 ```
 
 ### Quick Open for Speed
 
 ```bash
-# If you remember the name, use open
+# If you know the name, use open:
 pxo open my-app
 
-# Fuzzy search helps with partial names
-pxo open dash  # finds "client-dashboard"
+# Partial names work too (fuzzy search):
+pxo open dash   # finds "client-dashboard"
 ```
 
-### Organize Your Projects
+### Automate Tracking in Scripts
 
 ```bash
-# Keep projects organized
+# Use flags to skip prompts in scripts or CI:
+pxo track ~/projects/my-app --yes --ide vscode
+```
+
+### Organize Projects by Directory
+
+```bash
+# Keep projects grouped by purpose:
 ~/projects/clients/
 ~/projects/personal/
 ~/projects/learning/
 
-# Create projects in the right place
+# Create new projects in the right place:
 cd ~/projects/clients
 pxo
-```
-
-### Review Project Details
-
-```bash
-pxo list
-# → Select project → Show details
-
-# See full information:
-# - Complete path
-# - Creation date
-# - Framework type
-# - Default IDE
 ```
 
 ---
@@ -419,6 +479,16 @@ pxo
 # Data stored in: ~/.projxo/projects.json
 ```
 
+### Tracking Existing Projects
+
+For projects created before using ProjXO, use `pxo track`:
+
+```bash
+pxo track ~/projects/my-existing-app
+# Auto-detects framework, name, and language
+✓ Added my-existing-app to tracking
+```
+
 ### What's Stored
 
 - Project name and path
@@ -426,7 +496,7 @@ pxo
 - Creation and last accessed timestamps
 - IDE preference
 
-**Privacy:** All data stays local on your machine. No cloud sync, no tracking.
+**Privacy:** All data stays local on your machine (`~/.projxo/projects.json`). No cloud sync, no telemetry.
 
 ---
 
@@ -438,7 +508,7 @@ pxo
 # Reinstall globally
 npm install -g projxo
 
-# Or use with npx
+# Or run with npx
 npx projxo
 ```
 
@@ -452,25 +522,25 @@ npm install -g projxo
 
 ### IDE Doesn't Open
 
-1. Verify IDE is installed
-2. Setup command-line tools (see IDE Integration)
+1. Verify the IDE is installed
+2. Set up CLI tools (see [Supported IDEs](#supported-ides))
 3. Test manually: `code .` or `cursor .`
 
 ### Projects Not Showing in List
 
-**Projects created before v1.1.0 aren't tracked.**
-
-Only projects created after installing v1.1.0+ are automatically tracked.
-
-### Project Not Found (Open Command)
-
-If `pxo open` can't find your project:
+Projects created before v1.1.0 were not automatically tracked. Use `pxo track` to add them:
 
 ```bash
-# Use list to see exact names
+pxo track ~/projects/my-old-project
+```
+
+### Project Not Found with `pxo open`
+
+```bash
+# See exact names in the list
 pxo list
 
-# Or try partial name (fuzzy search)
+# Or try a partial name (fuzzy search)
 pxo open partial-name
 ```
 
@@ -483,7 +553,7 @@ Contributions are welcome! Please use pull requests.
 **Ways to contribute:**
 
 - 🐛 Report bugs
-- 💡 Suggest features  
+- 💡 Suggest features
 - 📖 Improve docs
 - 🔧 Submit PRs
 
@@ -493,7 +563,12 @@ Contributions are welcome! Please use pull requests.
 git clone https://github.com/sasangachathumal/ProjXO.git
 cd ProjXO
 npm install
-node index.js    # Test locally
+
+# Test locally
+node index.js
+# or link globally
+npm link
+pxo
 ```
 
 ---
@@ -507,12 +582,13 @@ MIT © Sasanga Chathumal
 ## 🙏 Credits
 
 Built with:
+
+- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js)
+- [Commander.js](https://github.com/tj/commander.js)
 - [Vite](https://vitejs.dev/)
 - [Next.js](https://nextjs.org/)
 - [Angular CLI](https://angular.io/cli)
 - [Expo](https://expo.dev/)
-- [Inquirer.js](https://github.com/SBoudrias/Inquirer.js)
-- [Commander.js](https://github.com/tj/commander.js)
 
 ---
 
@@ -537,6 +613,12 @@ Built with:
 # Create project
 pxo
 
+# Track existing project
+pxo track
+pxo track ~/projects/my-app
+pxo track ~/projects/my-app --yes --ide vscode
+pxo track ~/projects/my-app --manual
+
 # List projects
 pxo list
 pxo ls
@@ -548,21 +630,16 @@ pxo recent 5
 # Quick open
 pxo open <project-name>
 
-# Version
-pxo --version
-pxo -V
+# Statistics
+pxo stats
 
-# Help
+# Version & help
+pxo --version
 pxo --help
-pxo -h
 ```
 
 ---
 
-<div align="center">
-
-**Stop wasting time on setup. Start building.**
+Stop wasting time on setup. Start building.
 
 [⭐ Star on GitHub](https://github.com/sasangachathumal/ProjXO) • [📦 Install Now](https://www.npmjs.com/package/projxo) • [🐛 Report Issue](https://github.com/sasangachathumal/ProjXO/issues)
-
-</div>
